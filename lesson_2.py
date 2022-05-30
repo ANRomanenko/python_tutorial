@@ -20,3 +20,14 @@ a = {'a': 1, 'b': 2} # Словарь - dict
 print(type(a))
 a = True # И логические булевые значения True или False - bool
 print(type(a))
+
+print(5 + 5.5)
+print('string' + '12345')
+
+print(5 + float('12345'))
+print()
+
+x = float(input('Введит первое число : '))
+y = float(input('Введит второе число : '))
+r = x + y
+print('Получаем число: ' + str(r))
