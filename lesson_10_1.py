@@ -3,10 +3,11 @@ from bs4 import BeautifulSoup
 import csv
 
 CSV = 'cards.csv'
-HOST = 'https://tviy.club/'
-URL = 'https://tviy.club/sumki-genskiekoganye-genskie-sumki'
+HOST = 'https://www.moyo.ua/'
+URL = 'https://www.moyo.ua/ua/telecommunication/smart/'
 HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0'
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
 }
 
 
@@ -17,40 +18,18 @@ def get_html(url, params=''):
 
 def get_content(html):
     soup = BeautifulSoup(html, 'lxml')
-    items = soup.find_all('div', class_='product-thumb')
+    items = soup.find_all('div', class_='product-item')
     cards = []
     for item in items:
         cards.append(
             {
-                'title': item.find('div', class_='product-name').get_text(strip=True)
+                'title': item.find('a', class_='product-item_name gtm-link-product').get_text(strip=True),
+                'product_link': HOST + item.find('a', class_='product-item_name gtm-link-product').get('href'),
+                'price': item.find('div', class_='product-item_price_oldprice').get_text(strip=True)[:-3]
             }
         )
-
     return cards
 
 
-def save_doc(items, path):
-    with open(path, 'w', newline='') as file:
-        write = csv.writer(file, delimiter=';')
-        write.writerow(['Название карточки товара'])
-        for item in items:
-            write.writerow([item['title']])
-
-
-def parser():
-    PAGINATION = input('Введите число для парсинга страниц: ')
-    PAGINATION = int(PAGINATION.strip())
-    html = get_html(URL)
-    if html.status_code == 200:
-        cards = []
-        for page in range(1, PAGINATION +1):
-            print(f'Парсинг страницы №: {page}')
-            html = get_html(URL, params={'page': page})
-            cards.extend(get_content(html.text))
-            save_doc(cards, CSV)
-        print('Парсинг закончен! Спарсено', len(cards), 'карточек товара!')
-    else:
-        print('Error')
-
-
-parser()
+html = get_html(URL)
+print(get_content(html.text))
